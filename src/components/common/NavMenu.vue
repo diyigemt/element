@@ -5,28 +5,13 @@
       unique-opened
       router
       background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-        <el-submenu index="1">
+        <el-submenu v-for="(e, index) in menu" :index="e.id" :key="e.id + index">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>{{ e.name }}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
-            <el-menu-item index="1-4">选项4</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航二</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-            <el-menu-item index="2-4">选项4</el-menu-item>
+            <el-menu-item v-for="(k, i) in e.sub" :index="k.component" :key="k + i">{{ k.name }}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -35,9 +20,15 @@
 </template>
 
 <script>
-  export default {
-    name: "NavMenu"
+import menu_config from '@/config/home/menu-config';
+export default {
+  name: "NavMenu",
+  data() {
+    return {
+      menu: menu_config
+    }
   }
+}
 </script>
 
 <style scoped>
