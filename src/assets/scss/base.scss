@@ -1,0 +1,53 @@
+@import "./normalize.scss";
+$color-text: #666;
+$color-high-text: #ff5777;
+$color-tint: #ff8198;
+$color-background: #fff;
+$font-size: 14px;
+$line-height: 1.5;
+:root {
+    
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    // font-family: '';
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background: $color-background;
+    color: $color-text;
+    width: 100%;
+}
+    
+a {
+    color: $color-text;
+    text-decoration: none;
+}
+
+.clear-fix {
+    zoom: 1;
+}
+
+.clear-fix:after {
+    clear: both;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
