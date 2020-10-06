@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import '@/assets/scss/normalize.scss'
 import 'element-ui/lib/theme-chalk/index.css'
+import '@/assets/scss/base.scss'
 import ElementUI from 'element-ui'
 
 Vue.config.productionTip = false

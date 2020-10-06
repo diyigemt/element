@@ -1,11 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <el-button>to home</el-button>
-    </div>
+    <el-container>
+      <el-header>Header</el-header>
+      <el-aside width="200px">
+        <NavMenu></NavMenu>
+      </el-aside>
+      <el-main>Main</el-main>
+    </el-container>
     <router-view/>
   </div>
 </template>
+
+<script>
+import NavMenu from "@/components/common/NavMenu";
+export default {
+  name: 'App',
+  components: {
+    NavMenu
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
