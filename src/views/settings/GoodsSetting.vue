@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h5>新建订单</h5>
+    <h5>产品设置</h5>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CreateOrder"
+name: "GoodsSetting"
 }
 </script>
 

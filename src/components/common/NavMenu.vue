@@ -3,11 +3,10 @@
     <el-col :span="24">
       <el-menu default-active="2" class="el-menu-vertical-demo"
       unique-opened
-      router
-      background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      router>
         <el-submenu v-for="(e, index) in menu" :index="e.id" :key="e.id + index">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <i :class="e.icon"></i>
             <span>{{ e.name }}</span>
           </template>
           <el-menu-item-group>

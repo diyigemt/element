@@ -7,7 +7,8 @@ module.exports = [{
   }, {
     name: '修改会员基本资料',
     component: 'EditMember'
-  }]
+  }],
+  icon: 'el-icon-user'
 }, {
   name: '订单管理',
   id: 'order',
@@ -17,12 +18,25 @@ module.exports = [{
   }, {
     name: '查看历史订单',
     component: 'ShowOrder'
-  }]
+  }],
+  icon: 'el-icon-tickets'
 }, {
   name: '仓库管理',
   id: 'store',
   sub: [{
     name: '仓库管理',
     component: 'ShowStore'
-  }]
+  }],
+  icon: 'el-icon-coin'
+}, {
+  name: '系统设置',
+  id: 'settings',
+  sub: [{
+    name: '产品设置',
+    component: 'GoodsSetting'
+  }, {
+    name: '活动设置',
+    component: 'DiscountSetting'
+  }],
+  icon: 'el-icon-setting'
 }]
