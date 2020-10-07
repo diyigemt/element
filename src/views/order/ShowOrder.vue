@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>查看会员信息</h5>
+    <h5>查看订单</h5>
   </div>
 </template>
 

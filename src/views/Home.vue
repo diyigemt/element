@@ -1,14 +1,20 @@
 <template>
   <div>
-    <div class="left">
-      <el-progress type="circle" :format="() => '注册会员数:\n3,000'"
-                   :percentage="60"
-                   :color="colors"></el-progress>
-      <el-progress type="circle" :format="() => '当月订单量:\n3,000'"
+    <div class="left basic-progress">
+      <ProgressBar type="circle"
                    :percentage="90"
                    :color="colors"
                    :width="250"
-                   :stroke-width="20"></el-progress>
+                   :stroke-width="20"
+                   :text="'本月订单量:3,000'"
+                   :font-size="25"></ProgressBar>
+      <ProgressBar type="circle"
+                   :percentage="60"
+                   :color="colors"
+                   :text="'注册会员数:3,000'"></ProgressBar>
+    </div>
+    <div class="right">
+      这是右边
     </div>
   </div>
 </template>
@@ -16,6 +22,7 @@
 <script>
 import {progressColor} from "@/common/const";
 import {getHomeMultidata} from "@/network/home";
+import ProgressBar from "@/components/common/ProgressBar";
 
 export default {
   name: "Home",
@@ -23,6 +30,9 @@ export default {
     return {
       colors: progressColor
     }
+  },
+  components: {
+    ProgressBar
   },
   mounted() {
     getHomeMultidata().then((data) => {
