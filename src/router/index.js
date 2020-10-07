@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import menus from '@/config/home/menu-config'
 const Home = () => import('@/views/Home.vue');
-const ShowMembers = () => import('@/views/member/ShowMembers');
 
 Vue.use(VueRouter)
 
