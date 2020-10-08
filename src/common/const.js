@@ -5,3 +5,13 @@ export const progressColor = [
   {color: '#1989fa', percentage: 80},
   {color: '#6f7ad3', percentage: 100}
 ]
+export const basicCharColor = [
+  "#c12e34",
+  "#e6b600",
+  "#0098d9",
+  "#2b821d",
+  "#005eaa",
+  "#339ca8",
+  "#cda819",
+  "#32a487"
+]
