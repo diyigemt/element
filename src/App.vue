@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <el-header class="header">
-        <Header></Header>
+        <Header :text="'会员管理系统'"></Header>
       </el-header>
       <el-container>
         <el-aside width="200px">
