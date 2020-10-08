@@ -14,7 +14,6 @@ export default {
     name: {
       type: String,
       default: 'home',
-      validator: val => val.indexOf('/') === 0
     },
     text: String,
     fontSize: {

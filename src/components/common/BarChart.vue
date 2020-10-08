@@ -57,18 +57,13 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      screenWidth: document.body.clientWidth,
+      timer: false
     }
   },
-  watch: {
-    width(val) {
-      if (this.chart !== undefined) {
-        this.chart.resize();
-      }
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
+  methods: {
+    init() {
       this.chart = echarts.init(document.getElementById('main'));
       let option;
       if (this.option === undefined) {
@@ -95,7 +90,30 @@ export default {
         option = this.option;
       }
       this.chart.setOption(option);
-    })
+    }
+  },
+  watch: {
+    screenWidth(val) {
+      if (!this.timer) {
+        this.screenWidth = val;
+        this.timer = true;
+        setTimeout(() => {
+          this.init();
+          this.timer = false;
+        }, 400)
+      }
+    }
+  },
+  mounted() {
+    const that = this;
+    window.onresize = () => {
+      return (() => {
+        alert('asdasd');
+        window.screenWidth = document.body.clientWidth;
+        that.screenWidth = window.screenWidth;
+      })
+    }
+    this.$nextTick(this.init());
   }
 }
 </script>

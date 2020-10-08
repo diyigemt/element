@@ -26,8 +26,8 @@
                   :height="'300px'"></BarChart>
       </div>
     </div>
-    <div class="bottom">
-
+    <div class="bottom shadow">
+      <Table :name="'测试用例'"></Table>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@ import {progressColor} from "@/common/const";
 import {getHomeMultidata} from "@/network/home";
 import ProgressBar from "@/components/common/ProgressBar";
 import BarChart from "@/components/common/BarChart";
+import Table from "@/components/content/Table";
 
 export default {
   name: "Home",
@@ -49,7 +50,8 @@ export default {
   },
   components: {
     ProgressBar,
-    BarChart
+    BarChart,
+    Table
   },
   mounted() {
     // TODO
@@ -62,28 +64,32 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .top-top {
   font-size: 0;
 }
-.top .left {
-  width: 50%;
-  height: 100%;
-  text-align: justify;
-  display: inline-block;
-  vertical-align: middle;
-}
-.top .right {
-  width: 50%;
-  height: 100%;
-  text-align: right;
-  display: inline-block;
-  vertical-align: middle;
+.top {
+  margin-bottom: 10px;
+  .left {
+    width: 50%;
+    height: 100%;
+    text-align: justify;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .right {
+    width: 50%;
+    height: 100%;
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 .bottom {
 
 }
 .progressbar:last-child{
+  margin-top: 10px;
   margin-left: 10px;
 }
 .shadow {
