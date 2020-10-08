@@ -1,71 +1,99 @@
 <template>
   <div class="Echarts">
-    <div id="main"></div>
+    <div id="main" :style="{width: width + 'px',height: height + 'px'}"></div>
   </div>
 </template>
 
 <script>
 import echarts from 'echarts/lib/echarts'
-
+import barChartConfig from '@/config/echarts/barChart-config'
+// TODO delete
+let chartData = [5, 20, 15];
 export default {
   name: "BarChart",
   props: {
-    title: {
-      type: String
+    width: {
+      type: Number,
+      default: 200
+    },
+    height: {
+      type: Number,
+      default: 300
     },
     type: {
       type: String,
       default: 'vertical',
       validator: val => ['vertical', 'horizontal'].indexOf(val) > -1
     },
-    label: Array,
-    labelNum: Array,
-    hoverName: String,
-    colors: {
+    title: {
+      type: String,
+      default: ''
+    },
+    label: {
       type: Array,
-      default: ["#c12e34", "#e6b600", "#0098d9", "#2b821d", "#005eaa", "#339ca8", "#cda819", "#32a487"]
+      default: () => []
+    },
+    labelData: {
+      type: Array,
+      default: () => []
+    },
+    hoverName: {
+      type: String,
+      default: ''
+    },
+    barWidth: {
+      type: String,
+      default: '60%'
+    },
+    colors: {
+      type: Function,
+      default: (params) => {
+        let s = ["#c12e34", "#e6b600", "#0098d9", "#2b821d", "#005eaa", "#339ca8", "#cda819", "#32a487"]
+        return s[params.dataIndex];
+      }
     },
     option: {
       type: Object,
-      default: ''
+      default: () => {}
     }
   },
   data() {
     return {
-
+      chart: null
+    }
+  },
+  watch: {
+    width(val) {
+      if (this.chart !== undefined) {
+        this.chart.resize();
+      }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      let chart = echarts.init(document.getElementById('main'));
-      let charData = [5, 20, 15];
-      let option = '';
-      if (this.option === '') {
-        option = {
-          title: {text: '这是标题'},
-          tooltip: {},
-          xAxis: {
-            data: ['类别1', '类别2', '类别3']
-          },
-          yAxis: {},
-          series: [{
-            name: '销量',
-            type: 'bar',
-            itemStyle: {
-              normal: {
-                color: (params) => {
-                  let colors = this.colors;
-                  let sortData = charData.sort((a, b) => a - b);
-                  let index = sortData.indexOf(params.data);
-                  return colors[index];
-                }
-              }
-            },
-            data: charData
-          }]
+      this.chart = echarts.init(document.getElementById('main'));
+      let option;
+      if (this.option === undefined) {
+        option = barChartConfig;
+        option.series[0].data = this.labelData;
+        option.series[0].data = chartData; //TODO delete
+        option.title.text = this.title;
+        option.series[0].barWidth = this.barWidth;
+        option.series[0].itemStyle.normal.color = this.colors;
+        option.series[0].name = this.hoverName;
+        if (this.type === 'vertical') {
+          option.xAxis.data = this.label;
+          option.xAxis.data = chartData; //TODO delete
+          option.xAxis.type = 'category';
+          option.yAxis.type = 'value';
+        } else {
+          option.yAxis.data = this.label;
+          option.yAxis.data = chartData; //TODO delete
+          option.xAxis.type = 'value';
+          option.yAxis.type = 'category';
         }
       } else {
-        
+        option = this.option;
       }
       chart.setOption(option)
     })
@@ -74,8 +102,5 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  width: 400px;
-  height: 600px;
-}
+
 </style>

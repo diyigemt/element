@@ -7,14 +7,14 @@ import '@/assets/scss/normalize.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/scss/base.scss'
 import ElementUI from 'element-ui'
-import echars from 'echarts'
+require('echarts')
 // import 'vue-awesome/icons'
 // import Icon from 'vue-awesome/components/Icon'
 // Vue.component('v-icon', Icon)
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.prototype.$echarts = echars
+// Vue.prototype.$echarts = echars
 
 new Vue({
   router,

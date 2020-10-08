@@ -19,7 +19,9 @@
                    :font-size="25"></ProgressBar>
     </div>
     <div class="right">
-      <BarChart></BarChart>
+      <BarChart :type="'horizontal'"
+                :width="400"
+                :height="300"></BarChart>
     </div>
   </div>
 </template>
