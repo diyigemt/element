@@ -1,27 +1,33 @@
 <template>
-  <div>
-    <div class="left basic-progress">
-      <ProgressBar type="circle"
-                   class="progressbar"
-                   :percentage="60"
-                   :color="colors"
-                   :width="250"
-                   :stroke-width="25"
-                   :text="'注册会员数:' + numMember"
-                   :font-size="25"></ProgressBar>
-      <ProgressBar type="circle"
-                   class="progressbar"
-                   :percentage="90"
-                   :color="colors"
-                   :width="250"
-                   :stroke-width="20"
-                   :text="'本月订单量:' + numOrder"
-                   :font-size="25"></ProgressBar>
+  <div class="top-top">
+    <div class="top shadow">
+      <div class="left">
+        <ProgressBar type="circle"
+                     class="progressbar"
+                     :percentage="60"
+                     :color="colors"
+                     :width="250"
+                     :stroke-width="25"
+                     :text="'注册会员数:' + numMember"
+                     :font-size="25"></ProgressBar>
+        <ProgressBar type="circle"
+                     class="progressbar"
+                     :percentage="90"
+                     :color="colors"
+                     :width="250"
+                     :stroke-width="20"
+                     :text="'本月订单量:' + numOrder"
+                     :font-size="25"></ProgressBar>
+      </div>
+      <div class="right">
+        <BarChart :title="'本月销量'"
+                  :type="'horizontal'"
+                  :width="'100%'"
+                  :height="'300px'"></BarChart>
+      </div>
     </div>
-    <div class="right">
-      <BarChart :type="'horizontal'"
-                :width="400"
-                :height="300"></BarChart>
+    <div class="bottom">
+
     </div>
   </div>
 </template>
@@ -57,7 +63,32 @@ export default {
 </script>
 
 <style scoped>
+.top-top {
+  font-size: 0;
+}
+.top .left {
+  width: 50%;
+  height: 100%;
+  text-align: justify;
+  display: inline-block;
+  vertical-align: middle;
+}
+.top .right {
+  width: 50%;
+  height: 100%;
+  text-align: right;
+  display: inline-block;
+  vertical-align: middle;
+}
+.bottom {
+
+}
 .progressbar:last-child{
   margin-left: 10px;
+}
+.shadow {
+  position: relative;
+  padding: 5px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
 }
 </style>

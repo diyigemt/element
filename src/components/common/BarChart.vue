@@ -1,7 +1,5 @@
 <template>
-  <div class="Echarts">
-    <div id="main" :style="{width: width + 'px',height: height + 'px'}"></div>
-  </div>
+  <div id="main" :style="{width: width,height: height}"></div>
 </template>
 
 <script>
@@ -13,12 +11,12 @@ export default {
   name: "BarChart",
   props: {
     width: {
-      type: Number,
-      default: 200
+      type: String,
+      default: '200px'
     },
     height: {
-      type: Number,
-      default: 300
+      type: String,
+      default: '300px'
     },
     type: {
       type: String,
@@ -76,6 +74,7 @@ export default {
       if (this.option === undefined) {
         option = barChartConfig;
         option.series[0].data = this.labelData;
+        option.legend.data = this.labelData;
         option.series[0].data = chartData; //TODO delete
         option.title.text = this.title;
         option.series[0].barWidth = this.barWidth;
@@ -95,7 +94,7 @@ export default {
       } else {
         option = this.option;
       }
-      chart.setOption(option)
+      this.chart.setOption(option);
     })
   }
 }

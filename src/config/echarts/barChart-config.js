@@ -1,10 +1,17 @@
 module.exports = {
-  title: {text: '这是标题'},
+  title: {
+    text: '这是标题',
+    x: 'center'
+  },
   tooltip: {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow'
     }
+  },
+  legend: {
+    orient: 'vertical',
+    icon: 'circle',
   },
   xAxis: {
     type: 'category',
