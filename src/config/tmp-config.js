@@ -16,3 +16,28 @@ export const tmpTableData = [{
   name: '王小虎',
   address: '上海市普陀区金沙江路 1516 弄'
 }]
+export const tmpUserData = [{
+  id: 1,
+  name: '用户1',
+  birthDay: '2020-01-08',
+  registerDay: '2020-02-01',
+  gender: '1',
+  remain: 300.02,
+  points: 300
+}, {
+  id: 1,
+  name: '用户1',
+  birthDay: '2020-01-08',
+  registerDay: '2020-02-01',
+  gender: '1',
+  remain: 300.02,
+  points: 300
+}, {
+  id: 1,
+  name: '用户1',
+  birthDay: '2020-01-08',
+  registerDay: '2020-02-01',
+  gender: '1',
+  remain: 300.02,
+  points: 300
+}, ]

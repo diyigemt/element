@@ -11,15 +11,9 @@
 export default {
   name: "Header",
   props: {
-    name: {
-      type: String,
-      default: 'home',
-    },
+    name: {type: String, default: 'home',},
     text: String,
-    fontSize: {
-      type: Number,
-      default: 17
-    },
+    fontSize: {type: Number, default: 17},
     iconClass: String,
     params: Object
   },

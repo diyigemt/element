@@ -5,45 +5,21 @@
 <script>
 import echarts from 'echarts/lib/echarts'
 import barChartConfig from '@/config/echarts/barChart-config'
-// TODO delete
-import {tmpChartData} from "@/config/tmp-config";
-
 export default {
   name: "BarChart",
   props: {
-    width: {
-      type: String,
-      default: '200px'
-    },
-    height: {
-      type: String,
-      default: '300px'
-    },
+    width: {type: String, default: '200px'},
+    height: {type: String, default: '300px'},
     type: {
       type: String,
       default: 'vertical',
       validator: val => ['vertical', 'horizontal'].indexOf(val) > -1
     },
-    title: {
-      type: String,
-      default: ''
-    },
-    label: {
-      type: Array,
-      default: () => []
-    },
-    labelData: {
-      type: Array,
-      default: () => []
-    },
-    hoverName: {
-      type: String,
-      default: ''
-    },
-    barWidth: {
-      type: String,
-      default: '60%'
-    },
+    title: {type: String, default: ''},
+    label: {type: Array, default: () => []},
+    labelData: {type: Array, default: () => []},
+    hoverName: {type: String, default: ''},
+    barWidth: {type: String, default: '60%'},
     colors: {
       type: Function,
       default: (params) => {
@@ -51,10 +27,7 @@ export default {
         return s[params.dataIndex % s.length];
       }
     },
-    option: {
-      type: Object,
-      default: () => {}
-    }
+    option: {type: Object, default: () => {}}
   },
   data() {
     return {
@@ -70,19 +43,16 @@ export default {
         option = barChartConfig;
         option.series[0].data = this.labelData;
         option.legend.data = this.labelData;
-        option.series[0].data = tmpChartData; //TODO delete
         option.title.text = this.title;
         option.series[0].barWidth = this.barWidth;
         option.series[0].itemStyle.normal.color = this.colors;
         option.series[0].name = this.hoverName;
         if (this.type === 'vertical') {
           option.xAxis.data = this.label;
-          option.xAxis.data = tmpChartData; //TODO delete
           option.xAxis.type = 'category';
           option.yAxis.type = 'value';
         } else {
           option.yAxis.data = this.label;
-          option.yAxis.data = tmpChartData; //TODO delete
           option.xAxis.type = 'value';
           option.yAxis.type = 'category';
         }

@@ -3,17 +3,17 @@
     <div class="table-head">{{ name }}</div>
     <el-divider v-if="typeof name !== 'undefined'"></el-divider>
     <el-table
-        :data="tmpData"
+        :data="tableData"
         height="250px"
-        max-height="500px"
+        :max-height="maxHeight + 'px'"
         stripe
         border
         style="width: 100%">
-      <el-table-column type="index" width="50"></el-table-column>
-      <el-table-column v-for="(e, index) in tmpProp"
+      <el-table-column v-if="showIndex" type="index" width="50"></el-table-column>
+      <el-table-column v-for="(e, index) in propName"
                        :sortable="e === 'date'"
                        :prop="e"
-                       :label="tmpLabel[index]"
+                       :label="labelName[index]"
                        :key="e + index"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -28,30 +28,26 @@
 </template>
 
 <script>
-// TODO delete
-import {tmpTableData} from "@/config/tmp-config";
-
-let tmpPropName = Object.keys(tmpTableData[0]);
-let tmpLabelName = ['日期', '姓名', '地址']
 export default {
   name: "Table",
   props: {
     name: String,
     tableData: Array,
     propName: Array,
-    labelName: Array
+    labelName: Array,
+    showIndex: {type: Boolean, default: false},
+    actionPath: {type: String, require: true},
+    maxHeight: {type: Number, default: 500}
   },
   data() {
     return {
-      tmpData: tmpTableData, //TODO delete and replace by tableDate at props
-      tmpProp: tmpPropName, //TODO delete and replace by tableDate at props
-      tmpLabel: tmpLabelName //TODO delete and replace by tableDate at props
+
     }
   },
   methods: {
     handleCheck(index, row) {
-      // TODO 查看订单操作
-      // console.log(index, row);
+      // TODO 查看操作
+      // this.$router.push(this.actionPath);
     }
   }
 }

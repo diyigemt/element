@@ -23,11 +23,17 @@
         <BarChart :title="'本月销量'"
                   :type="'horizontal'"
                   :width="'100%'"
-                  :height="'300px'"></BarChart>
+                  :height="'300px'"
+                  :label="charLabel"
+                  :label-data="charLabelData"></BarChart>
       </div>
     </div>
     <div class="bottom shadow">
-      <Table :name="'最近订单'"></Table>
+      <Table :name="'最近订单'"
+             :table-data="tableData"
+             :prop-name="propName"
+             :label-name="labelName"
+             :show-index="true"></Table>
     </div>
   </div>
 </template>
@@ -38,14 +44,24 @@ import {getHomeMultidata} from "@/network/home";
 import ProgressBar from "@/components/common/ProgressBar";
 import BarChart from "@/components/common/BarChart";
 import Table from "@/components/content/Table";
-
+// TODO delete
+import {tmpChartData} from "@/config/tmp-config";
+//TODO delete
+import {tmpTableData} from "@/config/tmp-config";
+let tmpPropName = Object.keys(tmpTableData[0]);
+let tmpLabelName = ['日期', '姓名', '地址']
 export default {
   name: "Home",
   data() {
     return {
       numOrder: 0,
       numMember: 0,
-      colors: progressColor
+      colors: progressColor,
+      charLabel: tmpChartData, //TODO replace
+      charLabelData: tmpChartData,
+      tableData: tmpTableData,
+      propName: tmpPropName,
+      labelName: tmpLabelName
     }
   },
   components: {
@@ -91,10 +107,5 @@ export default {
 .progressbar:last-child{
   margin-top: 10px;
   margin-left: 10px;
-}
-.shadow {
-  position: relative;
-  padding: 5px 5px 5px 10px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
 }
 </style>
