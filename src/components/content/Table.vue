@@ -1,47 +1,38 @@
 <template>
   <div>
     <div class="table-head">{{ name }}</div>
-    <el-divider></el-divider>
+    <el-divider v-if="typeof name !== 'undefined'"></el-divider>
     <el-table
-        :data="t_data"
+        :data="tmpData"
+        height="250px"
+        max-height="500px"
         stripe
+        border
         style="width: 100%">
-      <el-table-column
-          prop="date"
-          label="日期"
-          width="">
-      </el-table-column>
-      <el-table-column
-          prop="name"
-          label="姓名"
-          width="">
-      </el-table-column>
-      <el-table-column
-          prop="address"
-          label="地址">
+      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column v-for="(e, index) in tmpProp"
+                       :sortable="e === 'date'"
+                       :prop="e"
+                       :label="tmpLabel[index]"
+                       :key="e + index"></el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+              size="mini"
+              type="primary"
+              @click="handleCheck(scope.$index, scope.row)">查看</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-let k = [{
-  date: '2016-05-02',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1518 弄'
-}, {
-  date: '2016-05-04',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1517 弄'
-}, {
-  date: '2016-05-01',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1519 弄'
-}, {
-  date: '2016-05-03',
-  name: '王小虎',
-  address: '上海市普陀区金沙江路 1516 弄'
-}]
+// TODO delete
+import {tmpTableData} from "@/config/tmp-config";
+
+let tmpPropName = Object.keys(tmpTableData[0]);
+let tmpLabelName = ['日期', '姓名', '地址']
 export default {
   name: "Table",
   props: {
@@ -52,7 +43,15 @@ export default {
   },
   data() {
     return {
-      t_data: k //TODO delete and replace by tableDate at props
+      tmpData: tmpTableData, //TODO delete and replace by tableDate at props
+      tmpProp: tmpPropName, //TODO delete and replace by tableDate at props
+      tmpLabel: tmpLabelName //TODO delete and replace by tableDate at props
+    }
+  },
+  methods: {
+    handleCheck(index, row) {
+      // TODO 查看订单操作
+      // console.log(index, row);
     }
   }
 }
@@ -61,6 +60,7 @@ export default {
 <style scoped>
 .table-head {
   margin: 10px;
+  margin-left: 0;
   text-align: left;
   font-size: 25px;
 }

@@ -6,7 +6,8 @@
 import echarts from 'echarts/lib/echarts'
 import barChartConfig from '@/config/echarts/barChart-config'
 // TODO delete
-let chartData = [5, 20, 15];
+import {tmpChartData} from "@/config/tmp-config";
+
 export default {
   name: "BarChart",
   props: {
@@ -69,19 +70,19 @@ export default {
         option = barChartConfig;
         option.series[0].data = this.labelData;
         option.legend.data = this.labelData;
-        option.series[0].data = chartData; //TODO delete
+        option.series[0].data = tmpChartData; //TODO delete
         option.title.text = this.title;
         option.series[0].barWidth = this.barWidth;
         option.series[0].itemStyle.normal.color = this.colors;
         option.series[0].name = this.hoverName;
         if (this.type === 'vertical') {
           option.xAxis.data = this.label;
-          option.xAxis.data = chartData; //TODO delete
+          option.xAxis.data = tmpChartData; //TODO delete
           option.xAxis.type = 'category';
           option.yAxis.type = 'value';
         } else {
           option.yAxis.data = this.label;
-          option.yAxis.data = chartData; //TODO delete
+          option.yAxis.data = tmpChartData; //TODO delete
           option.xAxis.type = 'value';
           option.yAxis.type = 'category';
         }

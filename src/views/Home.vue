@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="bottom shadow">
-      <Table :name="'测试用例'"></Table>
+      <Table :name="'最近订单'"></Table>
     </div>
   </div>
 </template>
@@ -94,7 +94,7 @@ export default {
 }
 .shadow {
   position: relative;
-  padding: 5px;
+  padding: 5px 5px 5px 10px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
 }
 </style>
