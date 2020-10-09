@@ -46,8 +46,8 @@ export default {
     colors: {
       type: Function,
       default: (params) => {
-        let s = ["#c12e34", "#e6b600", "#0098d9", "#2b821d", "#005eaa", "#339ca8", "#cda819", "#32a487"]
-        return s[params.dataIndex];
+        const s = ["#c12e34", "#e6b600", "#0098d9", "#2b821d", "#005eaa", "#339ca8", "#cda819", "#32a487"]
+        return s[params.dataIndex % s.length];
       }
     },
     option: {
@@ -58,7 +58,6 @@ export default {
   data() {
     return {
       chart: null,
-      screenWidth: document.body.clientWidth,
       timer: false
     }
   },
@@ -92,26 +91,18 @@ export default {
       this.chart.setOption(option);
     }
   },
-  watch: {
-    screenWidth(val) {
-      if (!this.timer) {
-        this.screenWidth = val;
-        this.timer = true;
-        setTimeout(() => {
-          this.init();
-          this.timer = false;
-        }, 400)
-      }
-    }
-  },
   mounted() {
     const that = this;
     window.onresize = () => {
       return (() => {
-        alert('asdasd');
-        window.screenWidth = document.body.clientWidth;
-        that.screenWidth = window.screenWidth;
-      })
+        if (!that.timer) {
+          that.chart.resize();
+          that.timer = true;
+          setTimeout(() => {
+            that.timer = false;
+          }, 400);
+        }
+      })();
     }
     this.$nextTick(this.init());
   }

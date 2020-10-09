@@ -34,7 +34,7 @@ module.exports = {
     itemStyle: {
       normal: {
         color: (params) => {
-          let colors = ["#c12e34",
+          const colors = ["#c12e34",
             "#e6b600",
             "#0098d9",
             "#2b821d",
@@ -42,7 +42,7 @@ module.exports = {
             "#339ca8",
             "#cda819",
             "#32a487"];
-          return colors[params.dataIndex];
+          return colors[params.dataIndex % colors.legend];
         }
       }
     },

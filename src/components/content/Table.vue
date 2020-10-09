@@ -3,18 +3,18 @@
     <div class="table-head">{{ name }}</div>
     <el-divider></el-divider>
     <el-table
-        :data="tableData"
+        :data="t_data"
         stripe
         style="width: 100%">
       <el-table-column
           prop="date"
           label="日期"
-          width="180">
+          width="">
       </el-table-column>
       <el-table-column
           prop="name"
           label="姓名"
-          width="180">
+          width="">
       </el-table-column>
       <el-table-column
           prop="address"
@@ -52,11 +52,8 @@ export default {
   },
   data() {
     return {
-
+      t_data: k //TODO delete and replace by tableDate at props
     }
-  },
-  mounted() {
-    this.tableData = k;
   }
 }
 </script>

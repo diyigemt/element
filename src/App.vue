@@ -21,6 +21,14 @@ import NavMenu from "@/components/common/NavMenu";
 import Header from "@/components/common/Header";
 export default {
   name: 'App',
+  data() {
+    return {
+
+    }
+  },
+  mounted() {
+
+  },
   components: {
     NavMenu,
     Header
@@ -30,7 +38,7 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  //font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
