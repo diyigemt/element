@@ -20,7 +20,7 @@
           <el-button
               size="mini"
               type="primary"
-              @click="handleCheck(scope.$index, scope.row)">查看</el-button>
+              @click="handleClick(scope.$index, scope.row)">{{ buttonName }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -36,7 +36,7 @@ export default {
     propName: Array,
     labelName: Array,
     showIndex: {type: Boolean, default: false},
-    actionPath: {type: String, require: true},
+    buttonName: {type: String, default: '查看'},
     maxHeight: {type: Number, default: 500}
   },
   data() {
@@ -45,9 +45,9 @@ export default {
     }
   },
   methods: {
-    handleCheck(index, row) {
+    handleClick(index, row) {
       // TODO 查看操作
-      // this.$router.push(this.actionPath);
+      this.$emit('btnClick', index, row);
     }
   }
 }
@@ -55,8 +55,7 @@ export default {
 
 <style scoped>
 .table-head {
-  margin: 10px;
-  margin-left: 0;
+  margin: 10px 10px 10px 0;
   text-align: left;
   font-size: 25px;
 }

@@ -18,26 +18,26 @@ export const tmpTableData = [{
 }]
 export const tmpUserData = [{
   id: 1,
-  name: '用户1',
+  name: '会员1',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
   gender: '1',
   remain: 300.02,
   points: 300
 }, {
-  id: 1,
-  name: '用户1',
+  id: 2,
+  name: '会员2',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
   gender: '1',
   remain: 300.02,
   points: 300
 }, {
-  id: 1,
-  name: '用户1',
+  id: 3,
+  name: '会员3',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
   gender: '1',
   remain: 300.02,
   points: 300
-}, ]
+}]

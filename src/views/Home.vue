@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="bottom shadow">
-      <Table :name="'最近订单'"
+      <Table name="最近订单"
              :table-data="tableData"
              :prop-name="propName"
              :label-name="labelName"

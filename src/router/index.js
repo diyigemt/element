@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/',
   // redirect: '/home' //TODO replace
-  redirect: '/ShowMembers'
+  redirect: '/EditMember'
 }, {
   name: 'home',
   path: '/home',
@@ -17,10 +17,20 @@ const routes = [{
 
 menus.forEach((item) => {
   item.sub.forEach((sub) => {
+    let childrens = [];
+    if (typeof sub.children !== "undefined") {
+      sub.children.forEach((e) => {
+        childrens.push({
+          path: e.path,
+          component: () => import(`@/views/${item.id}/children/${e.component}`)
+        })
+      });
+    }
     routes.push({
       path: `/${sub.component}`,
       name: sub.component,
-      component: () => import(`@/views/${item.id}/${sub.component}`)
+      component: () => import(`@/views/${item.id}/${sub.component}`),
+      children: childrens
     })
   })
 })

@@ -1,5 +1,16 @@
 <template>
-  <Table></Table>
+  <div>
+    <Table name="搜索结果"
+           :table-data="paginationData"
+           :prop-name="propName"
+           :label-name="labelName"
+           :btnClick="handleBtnClick()"></Table>
+    <el-pagination class="pagination"
+                   background
+                   layout="total, prev, pager, next"
+                   :total="total"
+                   :page-size="limit" @current-change="handlePageTurning($event)"></el-pagination>
+  </div>
 </template>
 
 <script>
@@ -12,18 +23,30 @@ export default {
     propName: Array,
     labelName: Array,
     showIndex: {type: Boolean, default: false},
-    actionPath: {type: String, require: true},
     maxHeight: {type: Number, default: 500},
     limit: {type: Number, default: 10}
   },
   data() {
     return {
-      paginationData: this.tableData.splice(this.limit)
+      startPoint: 0
     }
   },
   methods: {
-    handlePageTurning() {
-
+    handleBtnClick() {
+      // TODO
+    },
+    handlePageTurning(index) {
+      // TODO
+      console.log(index);
+      this.startPoint = this.limit * (index - 1);
+    }
+  },
+  computed: {
+    paginationData() {
+      return this.tableData.slice(this.startPoint, this.startPoint + this.limit);
+    },
+    total() {
+      return this.tableData.length;
     }
   },
   components: {
@@ -33,5 +56,7 @@ export default {
 </script>
 
 <style scoped>
-
+.pagination {
+  margin-top: 10px;
+}
 </style>

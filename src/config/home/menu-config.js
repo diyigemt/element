@@ -6,7 +6,11 @@ module.exports = [{
     component: 'ShowMembers'
   }, {
     name: '修改会员基本资料',
-    component: 'EditMember'
+    component: 'EditMember',
+    children: [{
+      path: 'baseInfo',
+      component: 'UserBaseInfo'
+    }]
   }],
   icon: 'el-icon-user'
 }, {

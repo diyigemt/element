@@ -39,7 +39,6 @@
     methods: {
       onSubmit() {
         this.$emit('submit', this.searchForm);
-        console.log('submit!');
       },
       labelName(index) {
         if (typeof this.labelNames === "string") return this.labelNames;

@@ -6,11 +6,12 @@
   export default {
     name: "PageHeader",
     props: {
-      content: {type: String, default: '详情界面'}
+      content: {type: String, default: '详情界面'},
+      fromPath: {type: String, default: '/home'}
     },
     methods: {
       goBack() {
-        this.$router.back();
+        this.$router.push(this.fromPath);
       }
     }
   }
