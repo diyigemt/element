@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="2">
-      <el-menu default-active="1">
+      <el-menu default-active="1" @select="handleSelect($event)">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
           <span slot="title">基本信息</span>
@@ -23,12 +23,14 @@
 <script>
   export default {
     name: "UserDetailCard",
-    props: {
-      baseInfo: {
-        type: Object,
-        default: () => {return  {userName: 'user'}}
-      },
-      headUrl: String
+    props: {},
+    methods: {
+      handleSelect(index) {
+        if (index === '1') {
+          let path = this.$route.path;
+          this.$router.replace('/baseInfo');
+        }
+      }
     }
   }
 </script>

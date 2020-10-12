@@ -9,7 +9,7 @@ module.exports = [{
     component: 'EditMember',
     children: [{
       path: 'baseInfo',
-      component: 'UserBaseInfo'
+      component: 'MemberBasicInfo'
     }]
   }],
   icon: 'el-icon-user'
