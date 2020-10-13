@@ -2,6 +2,9 @@ module.exports = [{
   name: '会员管理',
   id: 'member',
   sub: [{
+    name: '创建新会员',
+    component: 'NewMember'
+  }, {
     name: '查看会员基本资料',
     component: 'ShowMembers'
   }, {
