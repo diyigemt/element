@@ -15,16 +15,17 @@ const routes = [{
   component: Home
 }]
 
-menus.forEach((item) => {
-  item.sub.forEach((sub) => {
+for (let item of menus) {
+  for (let sub of item.sub) {
     let childrens = [];
     if (typeof sub.children !== "undefined") {
-      sub.children.forEach((e) => {
+      for (let e of sub.children) {
         childrens.push({
+          name: e.path,
           path: e.path,
           component: () => import(`@/views/${item.id}/children/${e.component}`)
         })
-      });
+      }
     }
     routes.push({
       path: `/${sub.component}`,
@@ -32,9 +33,27 @@ menus.forEach((item) => {
       component: () => import(`@/views/${item.id}/${sub.component}`),
       children: childrens
     })
-  })
-})
-routes.push()
+  }
+}
+// menus.forEach((item) => {
+//   item.sub.forEach((sub) => {
+//     let childrens = [];
+//     if (typeof sub.children !== "undefined") {
+//       sub.children.forEach((e) => {
+//         childrens.push({
+//           path: e.path,
+//           component: () => import(`@/views/${item.id}/children/${e.component}`)
+//         })
+//       });
+//     }
+//     routes.push({
+//       path: `/${sub.component}`,
+//       name: sub.component,
+//       component: () => import(`@/views/${item.id}/${sub.component}`),
+//       children: childrens
+//     })
+//   })
+// })
 
 const router = new VueRouter({
   mode: 'history',

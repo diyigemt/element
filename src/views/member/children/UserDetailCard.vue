@@ -28,7 +28,7 @@
       handleSelect(index) {
         if (index === '1') {
           let path = this.$route.path;
-          this.$router.replace('/baseInfo');
+          this.$router.replace({name: 'baseInfo'});
         }
       }
     }
