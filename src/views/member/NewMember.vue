@@ -24,11 +24,11 @@
                   :style="{width: '100%'}"></el-input>
       </el-form-item>
       <el-form-item size="large">
-        <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
         <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
+    <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
   </div>
 </template>
 <script>
@@ -38,16 +38,10 @@ import ConfirmBox from "@/components/common/ConfirmBox";
 export default {
   name: 'NewMember',
   components: {ConfirmBox},
-  props: [],
+  props: {},
   data() {
     return {
-      formData: {
-        userName: "测试",
-        gender: 1,
-        birthDay: "2000-01-01",
-        points: 0,
-        money: 0
-      },
+      formData: this.formDatas,
       rules: {
         userName: [{
           pattern: /^.{1,20}$/,
@@ -82,8 +76,7 @@ export default {
       }, {
         "label": "其他",
         "value": 3
-      }],
-      content: ''
+      }]
     }
   },
   computed: {},
@@ -94,13 +87,14 @@ export default {
     submitForm() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
-        this.content = `用户名: ${this.formData.userName}\n
-                        性别: ${this.genderOptions[this.formData.gender].label}\n
+        let content = `确认修改信息?
+                        用户名: ${this.formData.userName}\n
+                        性别: ${this.genderOptions[this.formData.gender - 1].label}\n
                         出生日期: ${this.formData.birthDay}\n
                         用户积分: ${this.formData.points}\n
                         剩余金额: ${this.formData.money}`
         this.$refs['confirmBox'].open({
-          content: this.content
+          content: content
         });
       })
     },
@@ -110,7 +104,7 @@ export default {
         request({}).then(res => {
           this.$message({
             type: 'info',
-            message: '成功'
+            message: '创建成功'
           })
         }).catch(err => {
           let r = (new RegExp('\\d0\\d')).exec(err.toString());

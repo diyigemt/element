@@ -32,13 +32,29 @@
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
+    <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
   </div>
 </template>
 <script>
+import ConfirmBox from "@/components/common/ConfirmBox";
+
+import {request} from "@/network/request";
+
 export default {
   name: 'MemberBasicInfo',
-  components: {},
-  props: [],
+  components: {ConfirmBox},
+  props: {
+    formDatas: {
+      type: Object,
+      default: () => {return {
+        userName: "测试",
+        gender: 1,
+        birthDay: "2000-01-01",
+        points: 0,
+        money: 0
+      }}
+    }
+  },
   data() {
     return {
       formData: {
@@ -52,15 +68,25 @@ export default {
       rules: {
         userName: [{
           pattern: /^.{1,20}$/,
+          required: true,
           message: '请至少输入一个字符!',
           trigger: 'blur'
         }],
-        gender: [],
-        birthDay: [],
-        points: [],
-        money: [{
+        gender: [{
           required: true,
-          message: '请至少输入0',
+          message: '请选择性别!',
+          trigger: 'blur'
+        }],
+        birthDay: [],
+        points: [{
+          pattern: /^\d*$/,
+          message: '请输入整数!',
+          trigger: 'blur'
+        }],
+        money: [{
+          pattern: /^[-]?\d*[.]?\d{0,2}$/,
+          required: true,
+          message: '请至少输入0,最多有两位小数!',
           trigger: 'blur'
         }],
         orderCount: [],
@@ -86,7 +112,33 @@ export default {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
+        let content = `确认修改信息?\u000d
+                        用户名: ${this.formDatas.userName} -> ${this.formData.userName}\u000d
+                        性别: ${this.genderOptions[this.formDatas.gender - 1].label} -> ${this.genderOptions[this.formData.gender - 1].label}\n
+                        出生日期: ${this.formDatas.birthDay} -> ${this.formData.birthDay}\n
+                        用户积分: ${this.formDatas.points} -> ${this.formData.points}\n
+                        剩余金额: ${this.formDatas.money} -> ${this.formData.money}`
+        this.$refs['confirmBox'].open({
+          content: content
+        });
       })
+    },submit(state) {
+      if (state) {
+        // TODO 提交表单
+        request({}).then(res => {
+          this.$message({
+            type: 'info',
+            message: '成功'
+          })
+        }).catch(err => {
+          let r = (new RegExp('\\d0\\d')).exec(err.toString());
+          let message = typeof r !== 'undefined' ? r[0] : '000';
+          this.$message({
+            type: 'error',
+            message: '操作失败! 服务器返回错误代码: '.concat(message)
+          })
+        })
+      }
     },
     resetForm() {
       this.$refs['elForm'].resetFields()

@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/',
   // redirect: '/home' //TODO replace
-  redirect: '/NewMember'
+  redirect: '/EditMember/baseInfo'
 }, {
   name: 'home',
   path: '/home',
