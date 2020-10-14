@@ -15,3 +15,13 @@ export const basicCharColor = [
   "#cda819",
   "#32a487"
 ]
+export const confirmBoxConfig = {
+  text: '确认',
+  content: '确认进行此操作?',
+  title: '确认',
+  confirmText: '确定',
+  type: 'warning',
+  cancelText: '取消',
+  successText: '操作成功',
+  failedText: '已取消'
+}

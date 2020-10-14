@@ -1,4 +1,3 @@
-<script src="../../router/index.js"></script>
 <template>
   <div>
     <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px">
@@ -25,6 +24,7 @@
                   :style="{width: '100%'}"></el-input>
       </el-form-item>
       <el-form-item size="large">
+        <ConfirmBox v-show="false" @action="submit($event)" :content="content" ref="confirmBox"></ConfirmBox>
         <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
@@ -32,9 +32,10 @@
   </div>
 </template>
 <script>
+import ConfirmBox from "@/components/common/ConfirmBox";
 export default {
   name: 'NewMember',
-  components: {},
+  components: {ConfirmBox},
   props: [],
   data() {
     return {
@@ -52,7 +53,11 @@ export default {
           message: '请至少输入一个字符!',
           trigger: 'blur'
         }],
-        gender: [],
+        gender: [{
+          required: true,
+          message: '请选择性别!',
+          trigger: 'blur'
+        }],
         birthDay: [],
         points: [{
           pattern: /^\d*$/,
@@ -60,7 +65,7 @@ export default {
           trigger: 'blur'
         }],
         money: [{
-          pattern: /^[-]?\d*\.\d{0,2}$/,
+          pattern: /^[-]?\d*[.]?\d{0,2}$/,
           required: true,
           message: '请至少输入0,最多有两位小数!',
           trigger: 'blur'
@@ -76,6 +81,7 @@ export default {
         "label": "其他",
         "value": 3
       }],
+      content: ''
     }
   },
   computed: {},
@@ -86,11 +92,22 @@ export default {
     submitForm() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
-        // TODO 提交表单
+        this.content = `用户名: ${this.formData.userName}\n
+                        性别: ${this.genderOptions[this.formData.gender].label}\n
+                        出生日期: ${this.formData.birthDay}\n
+                        用户积分: ${this.formData.points}\n
+                        剩余金额: ${this.formData.money}`
+        this.$refs['confirmBox'].open();
       })
     },
+    submit(state) {
+      if (state) {
+        // TODO 提交表单
+
+      }
+    },
     resetForm() {
-      this.$refs['elForm'].resetFields()
+      this.$refs['elForm'].resetFields();
     },
   }
 }
