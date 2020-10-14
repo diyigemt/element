@@ -24,7 +24,7 @@
                   :style="{width: '100%'}"></el-input>
       </el-form-item>
       <el-form-item size="large">
-        <ConfirmBox v-show="false" @action="submit($event)" :content="content" ref="confirmBox"></ConfirmBox>
+        <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
         <el-button type="primary" @click="submitForm">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
@@ -32,6 +32,8 @@
   </div>
 </template>
 <script>
+import {request} from "@/network/request";
+
 import ConfirmBox from "@/components/common/ConfirmBox";
 export default {
   name: 'NewMember',
@@ -97,13 +99,27 @@ export default {
                         出生日期: ${this.formData.birthDay}\n
                         用户积分: ${this.formData.points}\n
                         剩余金额: ${this.formData.money}`
-        this.$refs['confirmBox'].open();
+        this.$refs['confirmBox'].open({
+          content: this.content
+        });
       })
     },
     submit(state) {
       if (state) {
         // TODO 提交表单
-
+        request({}).then(res => {
+          this.$message({
+            type: 'info',
+            message: '成功'
+          })
+        }).catch(err => {
+          let r = (new RegExp('\\d0\\d')).exec(err.toString());
+          let message = typeof r !== 'undefined' ? r[0] : '000';
+          this.$message({
+            type: 'error',
+            message: '操作失败! 服务器返回错误代码: '.concat(message)
+          })
+        })
       }
     },
     resetForm() {

@@ -22,6 +22,8 @@ export const confirmBoxConfig = {
   confirmText: '确定',
   type: 'warning',
   cancelText: '取消',
+  showSuccess: false,
+  showCancel: true,
   successText: '操作成功',
   failedText: '已取消'
 }
