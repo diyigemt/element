@@ -112,12 +112,12 @@ export default {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
-        let content = `确认修改信息?\u000d
-                        用户名: ${this.formDatas.userName} -> ${this.formData.userName}\u000d
-                        性别: ${this.genderOptions[this.formDatas.gender - 1].label} -> ${this.genderOptions[this.formData.gender - 1].label}\n
-                        出生日期: ${this.formDatas.birthDay} -> ${this.formData.birthDay}\n
-                        用户积分: ${this.formDatas.points} -> ${this.formData.points}\n
-                        剩余金额: ${this.formDatas.money} -> ${this.formData.money}`
+        let content = `确认修改信息?\n
+                        用户名: ${this.formDatas.userName} ==> ${this.formData.userName}\n
+                        性别: ${this.genderOptions[this.formDatas.gender - 1].label} ==> ${this.genderOptions[this.formData.gender - 1].label}\n
+                        出生日期: ${this.formDatas.birthDay} ==> ${this.formData.birthDay}\n
+                        用户积分: ${this.formDatas.points} ==> ${this.formData.points}\n
+                        剩余金额: ${this.formDatas.money} ==> ${this.formData.money}`
         this.$refs['confirmBox'].open({
           content: content
         });

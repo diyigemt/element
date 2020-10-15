@@ -10,7 +10,14 @@ export default {
   methods: {
     open(config) {
       Object.assign(confirmBoxConfig, config);
-      this.$confirm(confirmBoxConfig.content, confirmBoxConfig.title, {
+      let h = this.$createElement;
+      let newData = [];
+      for (let e of confirmBoxConfig.content.split('\n')) {
+        newData.push(h('p', null, e));
+      }
+      this.$confirm('', {
+        title: confirmBoxConfig.title,
+        message: h('div', null, newData),
         confirmButtonText: confirmBoxConfig.confirmText,
         cancelButtonText: confirmBoxConfig.cancelText,
         type: confirmBoxConfig.type
