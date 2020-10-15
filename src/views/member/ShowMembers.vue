@@ -50,7 +50,7 @@ export default {
       //TODO jump to editPage
       this.$router.push({
         name: 'baseInfo',
-        params: {id: id}
+        query: {id: id}
       })
     }
   },
@@ -58,8 +58,7 @@ export default {
     //TODO get user info
   },
   beforeRouteEnter(to, from, next) {
-    const that = from;
-    next(vm => {vm.fromPath = that.path});
+    next(vm => {vm.fromPath = from.path});
   },
   components: {
     PageHeader,

@@ -30,32 +30,31 @@
 import PageHeader from "@/components/common/PageHeader";
 export default {
   name: "EditMember",
-  props: {
-    id: Number
-  },
   data() {
     return {
-      fromPath: ''
+      fromPath: '',
+      id: '-1'
     }
   },
   methods: {
     handleSelect(index) {
+      let query = {id: this.id};
       switch (index) {
-        case '1':{break;}
+        case '1':{this.$router.replace({name: 'baseInfo', query: query}); break;}
+        case '2':{this.$router.replace({name: 'orderInfo', query: query}); break;}
+        case '3':{this.$router.replace({name: 'baseInfo', query: query}); break;}
         default: {}
-      }
-      if (index === '1') {
-        let path = this.$route.path;
-        this.$router.replace({name: 'baseInfo'});
       }
     }
   },
-  beforeRouteUpdate(to ,from, next) {
-    
-  },
   beforeRouteEnter(to, from, next) {
-    const that = from;
-    next(vm => {vm.fromPath = that.path});
+    next(vm => {
+      vm.fromPath = from.path;
+      if (typeof to.query.id !== 'undefined') {
+        vm.id = to.query.id;
+      }
+    });
+
   },
   components: {
     PageHeader

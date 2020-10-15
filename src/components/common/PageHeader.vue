@@ -11,6 +11,8 @@
     },
     methods: {
       goBack() {
+        if (this.$route.path === this.fromPath) return;
+        if (this.fromPath.split('/').length !== 2) return;
         this.$router.push(this.fromPath);
       }
     }
