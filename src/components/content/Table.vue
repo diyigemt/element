@@ -45,9 +45,9 @@ export default {
     }
   },
   methods: {
-    handleClick(index, row) {
+    handleClick(index, o) {
       // TODO 查看操作
-      this.$emit('btnClick', index, row);
+      this.$emit('btnClick', o);
     }
   }
 }

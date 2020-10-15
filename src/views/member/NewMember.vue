@@ -41,7 +41,13 @@ export default {
   props: {},
   data() {
     return {
-      formData: this.formDatas,
+      formData: {
+        userName: "测试",
+        gender: 1,
+        birthDay: "2000-01-01",
+        points: 0,
+        money: 0
+      },
       rules: {
         userName: [{
           pattern: /^.{1,20}$/,
@@ -87,12 +93,12 @@ export default {
     submitForm() {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
-        let content = `确认修改信息?
+        let content = `确认创建新用户:?
                         用户名: ${this.formData.userName}\n
                         性别: ${this.genderOptions[this.formData.gender - 1].label}\n
                         出生日期: ${this.formData.birthDay}\n
                         用户积分: ${this.formData.points}\n
-                        剩余金额: ${this.formData.money}`
+                        剩余金额: ${this.formData.money}`;
         this.$refs['confirmBox'].open({
           content: content
         });

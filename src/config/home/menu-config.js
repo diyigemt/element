@@ -10,9 +10,13 @@ module.exports = [{
   }, {
     name: '修改会员基本资料',
     component: 'EditMember',
+    disabled: true,
     children: [{
       path: 'baseInfo',
       component: 'MemberBasicInfo'
+    }, {
+      path: 'orderInfo',
+      component: 'MemberOderInfo'
     }]
   }],
   icon: 'el-icon-user'

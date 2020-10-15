@@ -10,7 +10,10 @@
             <span>{{ e.name }}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-for="(k, i) in e.sub" :index="'/' + k.component" :key="k + i">{{ k.name }}</el-menu-item>
+            <el-menu-item v-for="(k, i) in e.sub"
+                          :index="'/' + k.component"
+                          :key="k + i"
+                          :disabled="k.disabled">{{ k.name }}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

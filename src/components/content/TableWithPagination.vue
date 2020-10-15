@@ -4,7 +4,7 @@
            :table-data="paginationData"
            :prop-name="propName"
            :label-name="labelName"
-           :btnClick="handleBtnClick()"></Table>
+           @btnClick="handleBtnClick($event)"></Table>
     <el-pagination class="pagination"
                    background
                    layout="total, prev, pager, next"
@@ -32,12 +32,12 @@ export default {
     }
   },
   methods: {
-    handleBtnClick() {
+    handleBtnClick(o, event) {
       // TODO
+      this.$emit('btnClick', o.id);
     },
     handlePageTurning(index) {
       // TODO
-      console.log(index);
       this.startPoint = this.limit * (index - 1);
     }
   },

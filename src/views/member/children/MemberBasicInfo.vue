@@ -16,15 +16,15 @@
           :style="{width: '100%'}"></el-date-picker>
       </el-form-item>
       <el-form-item label="用户积分" prop="points">
-        <el-input v-model="formData.points" readonly prefix-icon='el-icon-star-off' :style="{width: '100%'}">
+        <el-input v-model="formData.points" prefix-icon='el-icon-star-off' :style="{width: '100%'}">
         </el-input>
       </el-form-item>
       <el-form-item label="剩余金额" prop="money">
-        <el-input v-model="formData.money" readonly clearable prefix-icon='el-icon-refresh'
+        <el-input v-model="formData.money" clearable prefix-icon='el-icon-refresh'
           :style="{width: '100%'}"></el-input>
       </el-form-item>
       <el-form-item label="总订单数" prop="orderCount">
-        <el-input v-model="formData.orderCount" readonly clearable prefix-icon='el-icon-shopping-cart-1'
+        <el-input v-model="formData.orderCount" clearable prefix-icon='el-icon-shopping-cart-1'
           :style="{width: '100%'}"></el-input>
       </el-form-item>
       <el-form-item size="large">
@@ -112,7 +112,7 @@ export default {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
-        let content = `确认修改信息?\n
+        let content = `确认修改信息? 请仔细检查用户积分及剩余金额!!\n
                         用户名: ${this.formDatas.userName} ==> ${this.formData.userName}\n
                         性别: ${this.genderOptions[this.formDatas.gender - 1].label} ==> ${this.genderOptions[this.formData.gender - 1].label}\n
                         出生日期: ${this.formDatas.birthDay} ==> ${this.formData.birthDay}\n

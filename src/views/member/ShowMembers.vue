@@ -17,7 +17,7 @@
                :table-data="userData"
                :prop-name="propName"
                :label-name="labelName"
-               :limit="8"></TableWithPagination>
+               :limit="8" @btnClick="handleEdit($event)"></TableWithPagination>
       </div>
     </div>
   </div>
@@ -45,6 +45,13 @@ export default {
   methods: {
     handleSearch(target) {
       //TODO search user
+    },
+    handleEdit(id ,event) {
+      //TODO jump to editPage
+      this.$router.push({
+        name: 'baseInfo',
+        params: {id: id}
+      })
     }
   },
   mounted() {
