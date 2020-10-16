@@ -47,7 +47,7 @@ export default {
         case '3':{name = 'baseInfo'; break;}
         default: {}
       }
-      this.$router.replace({name: 'baseInfo', query: query});
+      this.$router.replace({name: name, query: query});
     }
   },
   beforeRouteEnter(to, from, next) {
