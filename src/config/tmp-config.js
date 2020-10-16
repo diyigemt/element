@@ -1,18 +1,22 @@
 export const tmpChartData = [5, 20, 15];
 export const tmpTableData = [{
-  date: '2016-05-02',
+  id: 0,
+  date: '2016-05-02 13:22:12',
   name: '王小虎',
   detail: '新疆驼奶粉1件'
 }, {
-  date: '2016-05-04',
+  id: 1,
+  date: '2016-05-04 13:22:12',
   name: '王小虎',
   detail: '新疆驼奶粉1件'
 }, {
-  date: '2016-05-01',
+  id: 2,
+  date: '2016-05-01 13:22:12',
   name: '王小虎',
   detail: '新疆驼奶粉1件'
 }, {
-  date: '2016-05-03',
+  id: 3,
+  date: '2016-05-03 13:22:12',
   name: '王小虎',
   detail: '新疆驼奶粉1件'
 }]

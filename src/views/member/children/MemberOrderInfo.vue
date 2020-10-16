@@ -1,16 +1,28 @@
 <template>
-  <div>
-    <SearchBox></SearchBox>
-    <TableWithPagination></TableWithPagination>
+  <div style="padding-left: 5px">
+    <TableWithTimePicker name="所有订单"
+                         :table-data="userData"
+                         :prop-name="propName"
+                         :label-name="labelName">
+    </TableWithTimePicker>
   </div>
 </template>
 
 <script>
-import SearchBox from "@/components/common/SearchBox";
-import TableWithPagination from "@/components/content/TableWithPagination";
+import TableWithTimePicker from "@/components/content/TableWithTimePicker";
+import {tmpTableData} from "@/config/tmp-config";
+let tmpPropName = ['date', 'name', 'detail'];
+let tmpLabelName = ['时间', '用户名', '详细信息']
 export default {
   name: "MemberOrderInfo",
-  components: {TableWithPagination, SearchBox}
+  components: {TableWithTimePicker},
+  data() {
+    return {
+      userData: tmpTableData,
+      propName: tmpPropName,
+      labelName: tmpLabelName
+    }
+  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table name="搜索结果"
+    <Table :name="name"
            :table-data="paginationData"
            :prop-name="propName"
            :label-name="labelName"
@@ -9,7 +9,7 @@
            @delClick="handleDelClick($event)"></Table>
     <el-pagination class="pagination"
                    background
-                   layout="total, prev, pager, next"
+                   layout="prev, pager, next, total"
                    :total="total"
                    :page-size="limit" @current-change="handlePageTurning($event)"></el-pagination>
   </div>

@@ -13,7 +13,7 @@
         ></SearchBox>
       </div>
       <div>
-        <TableWithPagination name="会员"
+        <TableWithPagination name="搜索结果"
                :table-data="userData"
                :prop-name="propName"
                :label-name="labelName"
