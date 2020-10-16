@@ -82,7 +82,7 @@ export default {
             }).catch(err => {
               this.$message({
                 type: 'error',
-                message: `操作失败! 服务器返回错误代码: ${err.response.status}`
+                message: `操作失败! 服务器返回错误代码: ${err}`
               })
               done();
             });
