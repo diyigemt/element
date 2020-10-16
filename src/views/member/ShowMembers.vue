@@ -17,7 +17,9 @@
                :table-data="userData"
                :prop-name="propName"
                :label-name="labelName"
-               :limit="8" @btnClick="handleEdit($event)"></TableWithPagination>
+               :limit="8"
+               @btnClick="handleEdit($event)"
+               @delClick="handleDelete($event)"></TableWithPagination>
       </div>
     </div>
   </div>
@@ -30,6 +32,7 @@ import TableWithPagination from "@/components/content/TableWithPagination";
 
 //TODO delete
 import {tmpUserData} from "@/config/tmp-config";
+import {request} from "@/network/request";
 let tmpPropName = ['name', 'registerDay', 'remain', 'points'];
 let tmpLabelName = ['用户名', '注册日期', '剩余金额', '当前积分']
 export default {
@@ -52,6 +55,51 @@ export default {
         name: 'baseInfo',
         query: {id: id}
       })
+    },
+    handleDelete(id ,event) {
+      let userName = '';
+      for (let index of this.userData) {
+        if (index.id === id) {
+          userName = index.name;
+        }
+      }
+      const h = this.$createElement;
+      this.$confirm('', {
+        title: '提示',
+        message: h('p', {style: 'color: red'}, `确认删除用户 ${userName}?`),
+        type: 'warning',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true;
+            instance.confirmButtonText = '通信中...';
+            //TODO 删除
+            request({}).then(res => {
+              done();
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              });
+            }).catch(err => {
+              console.log(err.response);
+              let r = (new RegExp('\\d0\\d')).exec(err.toString());
+              let message = typeof r !== 'undefined' ? r[0] : '000';
+              this.$message({
+                type: 'error',
+                message: '操作失败! 服务器返回错误代码: '.concat(message)
+              })
+              done();
+            });
+            instance.confirmButtonLoading = false;
+          } else {
+            done();
+          }
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
     }
   },
   mounted() {

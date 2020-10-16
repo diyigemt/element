@@ -20,7 +20,9 @@
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="18"><router-view></router-view></el-col>
+        <el-col :span="22">
+          <router-view></router-view>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -39,12 +41,13 @@ export default {
   methods: {
     handleSelect(index) {
       let query = {id: this.id};
+      let name = 'baseInfo';
       switch (index) {
-        case '1':{this.$router.replace({name: 'baseInfo', query: query}); break;}
-        case '2':{this.$router.replace({name: 'orderInfo', query: query}); break;}
-        case '3':{this.$router.replace({name: 'baseInfo', query: query}); break;}
+        case '2':{name = 'orderInfo'; break;}
+        case '3':{name = 'baseInfo'; break;}
         default: {}
       }
+      this.$router.replace({name: 'baseInfo', query: query});
     }
   },
   beforeRouteEnter(to, from, next) {

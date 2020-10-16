@@ -4,7 +4,9 @@
            :table-data="paginationData"
            :prop-name="propName"
            :label-name="labelName"
-           @btnClick="handleBtnClick($event)"></Table>
+           :show-del-btn="true"
+           @btnClick="handleBtnClick($event)"
+           @delClick="handleDelClick($event)"></Table>
     <el-pagination class="pagination"
                    background
                    layout="total, prev, pager, next"
@@ -35,6 +37,10 @@ export default {
     handleBtnClick(o, event) {
       // TODO
       this.$emit('btnClick', o.id);
+    },
+    handleDelClick(o, event) {
+      //TODO
+      this.$emit('delClick', o.id);
     },
     handlePageTurning(index) {
       // TODO

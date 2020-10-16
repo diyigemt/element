@@ -21,6 +21,10 @@
               size="mini"
               type="primary"
               @click="handleClick(scope.$index, scope.row)">{{ buttonName }}</el-button>
+          <el-button v-show="showDelBtn"
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)">{{ DelBtnName }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,6 +41,8 @@ export default {
     labelName: Array,
     showIndex: {type: Boolean, default: false},
     buttonName: {type: String, default: '查看'},
+    DelBtnName: {type: String, default: '删除'},
+    showDelBtn: {type: Boolean, default: false},
     maxHeight: {type: Number, default: 500}
   },
   data() {
@@ -48,6 +54,11 @@ export default {
     handleClick(index, o) {
       // TODO 查看操作
       this.$emit('btnClick', o);
+    },
+    handleDelete(index, o) {
+      if (this.showDelBtn) {
+        this.$emit('delClick', o);
+      }
     }
   }
 }
