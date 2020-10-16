@@ -17,6 +17,9 @@ module.exports = [{
     }, {
       path: 'orderInfo',
       component: 'MemberOrderInfo'
+    }, {
+      path: 'otherInfo',
+      component: 'MemberOtherInfo'
     }]
   }],
   icon: 'el-icon-user'

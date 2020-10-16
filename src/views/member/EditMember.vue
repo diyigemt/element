@@ -44,7 +44,7 @@ export default {
       let name = 'baseInfo';
       switch (index) {
         case '2':{name = 'orderInfo'; break;}
-        case '3':{name = 'baseInfo'; break;}
+        case '3':{name = 'otherInfo'; break;}
         default: {}
       }
       this.$router.replace({name: name, query: query});

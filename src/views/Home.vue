@@ -33,7 +33,7 @@
              :table-data="tableData"
              :prop-name="propName"
              :label-name="labelName"
-             :show-index="true"></Table>
+             :show-index="true" @btnClick="handleClick($event)"></Table>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ import {tmpChartData} from "@/config/tmp-config";
 //TODO delete
 import {tmpTableData} from "@/config/tmp-config";
 let tmpPropName = Object.keys(tmpTableData[0]);
-let tmpLabelName = ['日期', '姓名', '地址']
+let tmpLabelName = ['日期', '姓名', '详细信息']
 export default {
   name: "Home",
   data() {
@@ -68,6 +68,11 @@ export default {
     ProgressBar,
     BarChart,
     Table
+  },
+  methods: {
+    handleClick(o, event) {
+      // TODO show order Dialog
+    }
   },
   mounted() {
     // TODO

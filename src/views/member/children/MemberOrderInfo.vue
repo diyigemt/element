@@ -1,10 +1,16 @@
 <template>
-  <h5>用户订单信息</h5>
+  <div>
+    <SearchBox></SearchBox>
+    <TableWithPagination></TableWithPagination>
+  </div>
 </template>
 
 <script>
+import SearchBox from "@/components/common/SearchBox";
+import TableWithPagination from "@/components/content/TableWithPagination";
 export default {
-name: "MemberOrderInfo"
+  name: "MemberOrderInfo",
+  components: {TableWithPagination, SearchBox}
 }
 </script>
 

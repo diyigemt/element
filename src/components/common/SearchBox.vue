@@ -19,7 +19,7 @@
     name: "SearchBox",
     props: {
       submitName: {type: String, default: '提交'},
-      labelNames: {type: String | Array, default: '目标 :'},
+      labelNames: {type: String | Array, default: '搜索内容 :'},
       placeholders: String | Array,
       type: {
         type: Number, //1:单独搜索 2:分类搜索
@@ -32,7 +32,7 @@
       return {
         searchForm: {
           content: '',
-          type: ''
+          type: typeof this.options !== "undefined" ? this.options[0].value : ''
         }
       }
     },
