@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :content="'查看会员信息'" :from-path="fromPath"></PageHeader>
+    <PageHeader :content="'查看订单详情'" :from-path="fromPath"></PageHeader>
     <el-divider></el-divider>
   </div>
 </template>

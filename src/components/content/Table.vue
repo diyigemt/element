@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="table-head">{{ name }}</div>
+    <div>
+      <div class="table-head">{{ name }}</div>
+      <div class="table-head">共{{ this.tableData.length }}条数据</div>
+    </div>
     <el-divider v-if="typeof name !== 'undefined'"></el-divider>
     <el-table
         :data="tableData"
@@ -69,5 +72,6 @@ export default {
   margin: 10px 10px 10px 0;
   text-align: left;
   font-size: 25px;
+  display: inline-block;
 }
 </style>

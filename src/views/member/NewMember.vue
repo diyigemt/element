@@ -116,14 +116,12 @@ export default {
           this.$message({
             type: 'info',
             message: '创建成功'
-          })
+          });
         }).catch(err => {
-          let r = (new RegExp('\\d0\\d')).exec(err.toString());
-          let message = typeof r !== 'undefined' ? r[0] : '000';
           this.$message({
             type: 'error',
-            message: '操作失败! 服务器返回错误代码: '.concat(message)
-          })
+            message: `操作失败! 服务器返回错误代码: ${err}`
+          });
         })
       }
     },
