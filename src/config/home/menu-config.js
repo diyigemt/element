@@ -32,6 +32,9 @@ module.exports = [{
   }, {
     name: '查看历史订单',
     component: 'ShowOrder'
+  }, {
+    name: '查看订单详情',
+    component: 'OrderDetail'
   }],
   icon: 'el-icon-tickets'
 }, {

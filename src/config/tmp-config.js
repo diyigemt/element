@@ -55,3 +55,13 @@ export const tmpUserData = [{
   remain: 300.02,
   points: 300
 }]
+export const tmpOrderDetail = {
+  id: 1,
+  data: '2016-05-03 13:22:12',
+  name: '王小虎',
+  userID: 1,
+  detail: '新疆驼奶粉1件',
+  money: 500,
+  points: 500,
+  discount: 0.8
+}

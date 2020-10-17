@@ -101,6 +101,7 @@ export default {
         "label": "其他",
         "value": 3
       }],
+      id: -1
     }
   },
   computed: {},
@@ -141,6 +142,9 @@ export default {
     resetForm() {
       this.$refs['elForm'].resetFields()
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {if (typeof to.query.id !== "undefined") vm.id = to.query.id;});
   }
 }
 

@@ -18,8 +18,12 @@ export default {
     return {
       userData: tmpTableData,
       propName: tmpPropName,
-      labelName: tmpLabelName
+      labelName: tmpLabelName,
+      id: -1
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {if (typeof to.query.id !== "undefined") vm.id = to.query.id;});
   }
 }
 </script>
