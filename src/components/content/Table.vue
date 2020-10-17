@@ -4,11 +4,11 @@
     <el-divider v-if="typeof name !== 'undefined'"></el-divider>
     <el-table
         :data="tableData"
-        height="250px"
-        :max-height="maxHeight + 'px'"
+        :max-height="maxHeight"
         stripe
         border
-        style="width: 100%">
+        style="width: 100%"
+        empty-text="无数据">
       <el-table-column v-if="showIndex" type="index" width="50"></el-table-column>
       <el-table-column v-for="(e, index) in propName"
                        :sortable="e === 'date'"

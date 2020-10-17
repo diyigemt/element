@@ -73,7 +73,9 @@ export default {
             instance.confirmButtonLoading = true;
             instance.confirmButtonText = '通信中...';
             //TODO 删除
-            request({}).then(res => {
+            request({
+              url: ''
+            }).then(res => {
               done();
               this.$message({
                 type: 'success',
@@ -83,7 +85,7 @@ export default {
               this.$message({
                 type: 'error',
                 message: `操作失败! 服务器返回错误代码: ${err}`
-              })
+              });
               done();
             });
             instance.confirmButtonLoading = false;

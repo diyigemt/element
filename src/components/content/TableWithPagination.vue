@@ -5,6 +5,7 @@
            :prop-name="propName"
            :label-name="labelName"
            :show-del-btn="true"
+           :max-height="maxHeight"
            @btnClick="handleBtnClick($event)"
            @delClick="handleDelClick($event)"></Table>
     <el-pagination class="pagination"

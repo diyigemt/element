@@ -2,12 +2,12 @@
   <div>
     <el-date-picker
         v-model="value"
-        type="datetimerange"
+        type="daterange"
         :picker-options="pickerOptions"
         range-separator="至"
         start-placeholder="开始日期"
         end-placeholder="结束日期"
-        value-format="yyyy-MM-dd HH:mm:ss"
+        value-format="yyyy-MM-dd"
         align="right"
         @change="handleChange($event)">
     </el-date-picker>
@@ -16,6 +16,7 @@
                          :prop-name="propName"
                          :label-name="labelName"
                          :show-index="showIndex"
+                         :max-height="maxHeight"
                          :limit="limit">
     </TableWithPagination>
   </div>
@@ -62,7 +63,7 @@ export default {
     propName: Array,
     labelName: Array,
     showIndex: {type: Boolean, default: false},
-    maxHeight: {type: Number, default: 500},
+    maxHeight: {type: Number, default: 1000},
     limit: {type: Number, default: 10}
   }
 }

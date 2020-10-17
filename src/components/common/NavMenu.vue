@@ -1,8 +1,7 @@
 <template>
   <el-row class="tac">
     <el-col :span="24">
-      <el-menu default-active="2" class="el-menu-vertical-demo"
-      unique-opened
+      <el-menu default-active="2" class="el-menu-vertical-demo" :default-openeds="menu.map(item => item.id)"
       router>
         <el-submenu v-for="(e, index) in menu" :index="e.id" :key="e.id + index">
           <template slot="title">

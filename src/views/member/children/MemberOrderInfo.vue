@@ -1,11 +1,9 @@
 <template>
-  <div style="padding-left: 5px">
-    <TableWithTimePicker name="所有订单"
+  <TableWithTimePicker name="所有订单"
                          :table-data="userData"
                          :prop-name="propName"
                          :label-name="labelName">
-    </TableWithTimePicker>
-  </div>
+  </TableWithTimePicker>
 </template>
 
 <script>

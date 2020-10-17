@@ -20,7 +20,7 @@
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="22">
+        <el-col :span="22" style="padding-left: 10px;">
           <router-view></router-view>
         </el-col>
       </el-row>
