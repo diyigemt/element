@@ -16,7 +16,12 @@
                          :label-name="labelName"
                          :show-index="showIndex"
                          :max-height="maxHeight"
-                         :limit="limit" v-loading="loading">
+                         :limit="limit"
+                         :type="type"
+                         :total="total"
+                         @btnClick="handleCheck($event)"
+                         @delClick="handleDelete($event)"
+                         @pageTurn="handlePageTurn($event)">
     </TableWithPagination>
   </div>
 </template>
@@ -32,8 +37,7 @@ export default {
     return {
       pickerOptions: dateTimePikerConfig,
       dateArr: null,
-      value: '',
-      loading: false
+      value: ''
     }
   },
   computed: {
@@ -41,20 +45,6 @@ export default {
       get() {
         if (this.dateArr === null) {return this.tableData;}
         else {
-          //TODO 重新向服务器请求数据 全数据以及total
-          this.loading = true;
-          request({
-            url: ''
-          }).then(res => {
-            // TODO 在此更新
-            this.loading = false;
-          }).catch(err => {
-            this.loading = false;
-            this.$message({
-              type: 'error',
-              message: `操作失败! 服务器返回错误代码: ${err}`
-            })
-          });
           let low = this.dateArr[0].toString();
           let height = this.dateArr[1].toString();
           return this.tableData.filter(item => {
@@ -69,7 +59,22 @@ export default {
   },
   methods: {
     handleChange(arr, event) {
-      this.dateArr = arr;
+      if (this.type) {
+        this.dateArr = arr;
+      } else  {
+        this.$emit('changeDate', arr);
+      }
+    },
+    handleCheck(id, event) {
+      this.$emit('btnClick', id);
+    },
+    handleDelete(id, event) {
+      this.$emit('delClick', id);
+    },
+    handlePageTurn(index, event) {
+      if (!this.type) {
+        this.$emit('pageTurn', index);
+      }
     }
   },
   props: {
@@ -79,7 +84,9 @@ export default {
     labelName: Array,
     showIndex: {type: Boolean, default: false},
     maxHeight: {type: Number, default: 1000},
-    limit: {type: Number, default: 10}
+    limit: {type: Number, default: 10},
+    type: {type: Boolean, default: true},
+    total: Number //若分页在本体进行,则留空
   }
 }
 </script>

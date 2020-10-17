@@ -11,8 +11,9 @@
     <el-pagination class="pagination"
                    background
                    layout="prev, pager, next, total"
-                   :total="total"
-                   :page-size="limit" @current-change="handlePageTurning($event)"></el-pagination>
+                   :total="myTotal"
+                   :page-size="limit"
+                   @current-change="handlePageTurning($event)"></el-pagination>
   </div>
 </template>
 
@@ -27,7 +28,9 @@ export default {
     labelName: Array,
     showIndex: {type: Boolean, default: false},
     maxHeight: {type: Number, default: 500},
-    limit: {type: Number, default: 10}
+    limit: {type: Number, default: 10},
+    type: {type: Boolean, default: true},
+    total: Number //若分页在本体进行,则留空
   },
   data() {
     return {
@@ -45,15 +48,27 @@ export default {
     },
     handlePageTurning(index) {
       // TODO
-      this.startPoint = this.limit * (index - 1);
+      if (this.type) {
+        this.startPoint = this.limit * (index - 1);
+      } else {
+        this.$emit('pageTurn', index);
+      }
     }
   },
   computed: {
     paginationData() {
-      return this.tableData.slice(this.startPoint, this.startPoint + this.limit);
+      if (this.type) {
+        return this.tableData.slice(this.startPoint, this.startPoint + this.limit);
+      } else {
+        return this.tableData;
+      }
     },
-    total() {
-      return this.tableData.length;
+    myTotal() {
+      if (this.type) {
+        return this.tableData.length;
+      } else {
+        return this.total;
+      }
     }
   },
   components: {

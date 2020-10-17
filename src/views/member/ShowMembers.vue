@@ -9,17 +9,23 @@
                    :placeholders="['', '按用户名搜索']"
                    :type="2"
                    :options="[{'label': '按用户名搜索', 'value': 'userName'}, {'label': '按用户id搜索', 'value': 'userId'}]"
-                   @submit="handleSearch($event)"
-        ></SearchBox>
+                   @submit="handleSearch($event)">
+        </SearchBox>
       </div>
       <div>
-        <TableWithPagination name="搜索结果"
-               :table-data="userData"
-               :prop-name="propName"
-               :label-name="labelName"
-               :limit="8"
-               @btnClick="handleEdit($event)"
-               @delClick="handleDelete($event)"></TableWithPagination>
+        <TableWithPagination
+            name="搜索结果"
+            :table-data="userData"
+            :prop-name="propName"
+            :label-name="labelName"
+            :limit="8"
+            :type="false"
+            :total="total"
+            v-loading="loading"
+            @btnClick="handleEdit($event)"
+            @delClick="handleDelete($event)"
+            @pageTurn="handlePageTurn($event)">
+        </TableWithPagination>
       </div>
     </div>
   </div>
@@ -42,12 +48,27 @@ export default {
       fromPath: '',
       userData: tmpUserData,
       propName: tmpPropName,
-      labelName: tmpLabelName
+      labelName: tmpLabelName,
+      total: 0,
+      loading: false
     }
   },
   methods: {
     handleSearch(target) {
       //TODO search user
+      this.loading = true;
+      request({
+        url: ''
+      }).then(res => {
+        // TODO 在此更新
+        this.loading = false;
+      }).catch(err => {
+        this.loading = false;
+        this.$message({
+          type: 'error',
+          message: `操作失败! 服务器返回错误代码: ${err}`
+        })
+      });
     },
     handleEdit(id ,event) {
       //TODO jump to editPage
@@ -55,6 +76,22 @@ export default {
         name: 'baseInfo',
         query: {id: id}
       })
+    },
+    handlePageTurn() {
+      //TODO 重新向服务器请求数据 全数据以及total
+      this.loading = true;
+      request({
+        url: ''
+      }).then(res => {
+        // TODO 在此更新
+        this.loading = false;
+      }).catch(err => {
+        this.loading = false;
+        this.$message({
+          type: 'error',
+          message: `操作失败! 服务器返回错误代码: ${err}`
+        })
+      });
     },
     handleDelete(id ,event) {
       let userName = '';
@@ -102,7 +139,7 @@ export default {
     }
   },
   mounted() {
-    //TODO get user info
+    //TODO get user info get total
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {vm.fromPath = from.path});
