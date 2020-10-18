@@ -53,7 +53,7 @@ export default {
     handleEdit(id ,event) {
       //TODO jump to editPage
       this.$router.push({
-        name: 'baseInfo',
+        name: 'OrderDetail',
         query: {id: id}
       })
     },
@@ -74,19 +74,49 @@ export default {
       });
     },
     handleDelete(id, event) {
-      //TODO 重新向服务器请求数据 全数据以及total
-      this.loading = true;
-      request({
-        url: ''
-      }).then(res => {
-        // TODO 在此更新
-        this.loading = false;
-      }).catch(err => {
-        this.loading = false;
+      //TODO 删除订单信息
+      let userName = '';
+      for (let index of this.userData) {
+        if (index.id === id) {
+          userName = index.name;
+        }
+      }
+      const h = this.$createElement;
+      this.$confirm('', {
+        title: '提示',
+        message: h('p', {style: 'color: red'}, `确认删除订单信息 ${userName}?`),
+        type: 'warning',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true;
+            instance.confirmButtonText = '通信中...';
+            //TODO 删除
+            request({
+              url: ''
+            }).then(res => {
+              done();
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              });
+              // TODO 直接在数据中删除 or 重新请求数据?
+            }).catch(err => {
+              this.$message({
+                type: 'error',
+                message: `操作失败! 服务器返回错误代码: ${err}`
+              });
+              done();
+            });
+            instance.confirmButtonLoading = false;
+          } else {
+            done();
+          }
+        }
+      }).catch(() => {
         this.$message({
-          type: 'error',
-          message: `操作失败! 服务器返回错误代码: ${err}`
-        })
+          type: 'info',
+          message: '已取消'
+        });
       });
     },
     handleChangeDate(arr, index) {

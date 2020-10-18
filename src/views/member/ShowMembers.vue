@@ -118,6 +118,7 @@ export default {
                 type: 'success',
                 message: '删除成功'
               });
+              // TODO 直接在数据中删除 or 重新请求数据?
             }).catch(err => {
               this.$message({
                 type: 'error',
