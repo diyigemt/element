@@ -57,7 +57,7 @@ export const tmpUserData = [{
 }]
 export const tmpOrderDetail = {
   id: 1,
-  data: '2016-05-03 13:22:12',
+  date: '2016-05-03 13:22:12',
   name: '王小虎',
   userID: 1,
   detail: '新疆驼奶粉1件',
