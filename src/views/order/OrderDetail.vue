@@ -3,15 +3,46 @@
     <PageHeader :content="'查看订单详情'" :from-path="fromPath"></PageHeader>
     <el-divider></el-divider>
     <div class="shadow">
-      <el-row>
-        <el-col :span="6">
-          <el-form label-position="left">
-            <el-form-item label="创建日期">
-
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
+      <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px">
+        <el-form-item label="启用编辑" prop="edit">
+          <div style="text-align: left;">
+            <el-switch v-model="editEnable"
+                       active-color="#13ce66"
+                       inactive-color="#ff4949"
+                       active-text="启用编辑"
+                       inactive-text="关闭编辑">
+            </el-switch>
+          </div>
+        </el-form-item>
+        <el-form-item label="创建时间" prop="createTime">
+          <el-date-picker :disabled="readonly" v-model="formData.createTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
+                          :style="{width: '100%'}" placeholder="请选择创建时间"
+                          clearable></el-date-picker>
+        </el-form-item>
+        <el-form-item label="用户名" prop="userName" required>
+          <el-input :readonly="readonly" v-model="formData.userName" placeholder="用户名用户名" :maxlength="20" show-word-limit clearable
+                    prefix-icon='el-icon-user' :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item label="金额" prop="money">
+          <el-input :readonly="readonly" v-model="formData.money" placeholder="金额" clearable prefix-icon='el-icon-refresh'
+                    :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item label="详细信息" prop="detail">
+          <el-input :readonly="readonly" v-model="formData.detail" type="textarea" :autosize="{minRows: 4, maxRows: 8}"
+                    :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item label="折扣" prop="discount">
+          <el-input :readonly="readonly" v-model="formData.discount" clearable :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item label="积分" prop="points">
+          <el-input :readonly="readonly" v-model="formData.points" placeholder="积分" readonly clearable
+                    prefix-icon='el-icon-shopping-cart-1' :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item size="large">
+          <el-button :disabled="readonly" type="primary" @click="submitForm">提交</el-button>
+          <el-button :disabled="readonly" @click="resetForm">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
@@ -26,7 +57,48 @@ export default {
     return {
       fromPath: '',
       orderDetail: tmpOrderDetail,
-      id: -1
+      id: -1,
+      editEnable: false,
+      formData: {
+        createTime: "2018-11-01 14:55:38",
+        userName: "测试",
+        money: 0,
+        detail: undefined,
+        discount: 0,
+        points: 0,
+      },
+      rules: {
+        createTime: [],
+        userName: [{
+          pattern: /^.{1,20}$/,
+          message: '请至少输入一个字符!',
+          trigger: 'blur'
+        }],
+        money: [],
+        detail: [],
+        discount: [{
+          pattern: /^[0-9][.]?[0-9]{0,2}$/,
+          message: '格式:*.**',
+          trigger: 'blur'
+        }],
+        points: [],
+      },
+    }
+  },
+  methods: {
+    submitForm() {
+      this.$refs['elForm'].validate(valid => {
+        if (!valid) return
+        // TODO 提交表单
+      })
+    },
+    resetForm() {
+      this.$refs['elForm'].resetFields()
+    }
+  },
+  computed: {
+    readonly() {
+      return !this.editEnable;
     }
   },
   beforeRouteEnter(to, from, next) {
