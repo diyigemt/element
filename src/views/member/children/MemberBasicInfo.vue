@@ -138,7 +138,8 @@ export default {
           content: content
         });
       })
-    },submit(state) {
+    },
+    submit(state) {
       if (state) {
         // TODO 提交表单
         request({}).then(res => {

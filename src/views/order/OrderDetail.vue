@@ -43,6 +43,7 @@
           <el-button :disabled="readonly" @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
+      <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
     </div>
   </div>
 </template>
@@ -50,9 +51,11 @@
 <script>
 import {tmpOrderDetail} from "@/config/tmp-config";
 import PageHeader from "@/components/common/PageHeader";
+import ConfirmBox from "@/components/common/ConfirmBox";
+import {request} from "@/network/request";
 export default {
   name: "OrderDetail",
-  components: {PageHeader},
+  components: {PageHeader, ConfirmBox},
   data() {
     return {
       fromPath: '',
@@ -65,7 +68,15 @@ export default {
         money: 0,
         detail: undefined,
         discount: 0,
-        points: 0,
+        points: 0
+      },
+      formDatas: {
+        createTime: "2018-11-01 14:55:38",
+        userName: "测试",
+        money: 0,
+        detail: undefined,
+        discount: 0,
+        points: 0
       },
       rules: {
         createTime: [],
@@ -90,7 +101,33 @@ export default {
       this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
+        let content = `确认修改订单信息?\n
+                        创建时间: ${this.formDatas.createTime} ==> ${this.formData.createTime}\n
+                        用户名: ${this.formDatas.userName} ==> ${this.formDatas.userName}\n
+                        金额: ${this.formDatas.money} ==> ${this.formData.money}\n
+                        详细信息: ${this.formDatas.detail} ==> ${this.formData.detail}\n
+                        折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
+                        积分: ${this.formDatas.points} ==> ${this.formData.points}`
+        this.$refs['confirmBox'].open({
+          content: content
+        });
       })
+    },
+    submit(state) {
+      if (state) {
+        // TODO 提交表单
+        request({}).then(res => {
+          this.$message({
+            type: 'info',
+            message: '成功'
+          })
+        }).catch(err => {
+          this.$message({
+            type: 'error',
+            message: `操作失败! 服务器返回错误代码: ${err}`
+          })
+        })
+      }
     },
     resetForm() {
       this.$refs['elForm'].resetFields()
