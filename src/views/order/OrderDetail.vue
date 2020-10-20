@@ -44,7 +44,6 @@
           <el-button :disabled="readonly" type="danger" @click="handleDelete()">删除订单</el-button>
         </el-form-item>
       </el-form>
-<!--      <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>-->
     </div>
   </div>
 </template>
@@ -53,9 +52,7 @@
 import {tmpOrderDetail} from "@/config/tmp-config";
 import {confirmBox} from '@/common/utils';
 import PageHeader from "@/components/common/PageHeader";
-// import ConfirmBox from "@/components/common/ConfirmBox";
 import {request} from "@/network/request";
-import {confirmBoxConfig} from "@/common/const";
 export default {
   name: "OrderDetail",
   components: {PageHeader},
@@ -111,38 +108,26 @@ export default {
                         详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail}\n
                         折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
                         积分: ${this.formDatas.points} ==> ${this.formData.points}`;
-
-        // this.$refs['confirmBox'].open({
-        //   content: content
-        // });
-        confirmBox({content: content}).then(() => {
-          this.$message({
-            type: 'success',
-            message: '成功'
+        confirmBox(this.$createElement, {content: content}).then(() => {
+          // TODO 提交表单
+          request({}).then(res => {
+            this.$message({
+              type: 'info',
+              message: '成功'
+            });
+          }).catch(err => {
+            this.$message({
+              type: 'error',
+              message: `操作失败! 服务器返回错误代码: ${err}`
+            });
           });
         }).catch((err) => {
           this.$message({
-            type: 'error',
-            message: `操作失败! 服务器返回错误代码: ${err}`
+            type: 'info',
+            message: '已取消'
           });
         });
       });
-    },
-    submit(state) {
-      if (state) {
-        // TODO 提交表单
-        request({}).then(res => {
-          this.$message({
-            type: 'info',
-            message: '成功'
-          })
-        }).catch(err => {
-          this.$message({
-            type: 'error',
-            message: `操作失败! 服务器返回错误代码: ${err}`
-          })
-        })
-      }
     },
     handleDelete() {
       this.$confirm('', {

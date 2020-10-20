@@ -1,16 +1,15 @@
 import {confirmBoxConfig} from "@/common/const";
 import {MessageBox} from 'element-ui';
-import Vue from 'vue'
-export function confirmBox(config) {
+
+export function confirmBox(render, config) {
   Object.assign(confirmBoxConfig, config);
-  let h = Vue.prototype.$createElement;
   let newData = [];
   for (let e of confirmBoxConfig.content.split('\n')) {
-    newData.push(h('p', null, e));
+    newData.push(render('p', null, e));
   }
   return MessageBox.confirm('', {
     title: confirmBoxConfig.title,
-    message: h('div', null, newData),
+    message: render('div', null, newData),
     confirmButtonText: confirmBoxConfig.confirmText,
     cancelButtonText: confirmBoxConfig.cancelText,
     type: confirmBoxConfig.type

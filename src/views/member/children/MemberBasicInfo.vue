@@ -42,17 +42,15 @@
         <el-button :disabled="readonly" @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
-    <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
   </div>
 </template>
 <script>
-import ConfirmBox from "@/components/common/ConfirmBox";
-
 import {request} from "@/network/request";
+import {confirmBox} from "@/common/utils";
 
 export default {
   name: 'MemberBasicInfo',
-  components: {ConfirmBox},
+  components: {},
   props: {
     formDatas: {
       type: Object,
@@ -133,27 +131,27 @@ export default {
                         性别: ${this.genderOptions[this.formDatas.gender - 1].label} ==> ${this.genderOptions[this.formData.gender - 1].label}\n
                         出生日期: ${this.formDatas.birthDay} ==> ${this.formData.birthDay}\n
                         用户积分: ${this.formDatas.points} ==> ${this.formData.points}\n
-                        剩余金额: ${this.formDatas.money} ==> ${this.formData.money}`
-        this.$refs['confirmBox'].open({
-          content: content
-        });
-      })
-    },
-    submit(state) {
-      if (state) {
-        // TODO 提交表单
-        request({}).then(res => {
+                        剩余金额: ${this.formDatas.money} ==> ${this.formData.money}`;
+        confirmBox(this.$createElement, {content: content}).then(() => {
+          // TODO 提交表单
+          request({}).then(res => {
+            this.$message({
+              type: 'info',
+              message: '成功'
+            });
+          }).catch(err => {
+            this.$message({
+              type: 'error',
+              message: `操作失败! 服务器返回错误代码: ${err}`
+            });
+          });
+        }).catch((err) => {
           this.$message({
             type: 'info',
-            message: '成功'
-          })
-        }).catch(err => {
-          this.$message({
-            type: 'error',
-            message: `操作失败! 服务器返回错误代码: ${err}`
-          })
-        })
-      }
+            message: '已取消'
+          });
+        });
+      });
     },
     resetForm() {
       this.$refs['elForm'].resetFields()
