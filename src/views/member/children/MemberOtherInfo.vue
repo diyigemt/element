@@ -57,7 +57,7 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {if (typeof to.query.id !== "undefined") vm.id = to.query.id;});
+    next(vm => {vm.id = to.query.id || -1;});
   }
 }
 </script>

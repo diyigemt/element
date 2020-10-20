@@ -143,7 +143,7 @@ export default {
     //TODO get user info get total
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {vm.fromPath = from.path});
+    next(vm => {vm.fromPath = `${from.path}?id=${from.query.id || ''}`;});
   },
   components: {
     PageHeader,

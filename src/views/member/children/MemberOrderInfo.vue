@@ -88,8 +88,8 @@ export default {
         type: 'warning',
         beforeClose: (action, instance, done) => {
           if (action === 'confirm') {
-            instance.confirmButtonLoading = true;
             instance.confirmButtonText = '通信中...';
+            instance.confirmButtonLoading = true;
             //TODO 删除
             request({
               url: ''
@@ -144,7 +144,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {if (typeof to.query.id !== "undefined") vm.id = to.query.id;});
+    next(vm => {vm.id = to.query.id || -1;});
   }
 }
 </script>

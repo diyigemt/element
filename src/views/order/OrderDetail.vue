@@ -105,7 +105,7 @@ export default {
                         创建时间: ${this.formDatas.createTime} ==> ${this.formData.createTime}\n
                         用户名: ${this.formDatas.userName} ==> ${this.formDatas.userName}\n
                         金额: ${this.formDatas.money} ==> ${this.formData.money}\n
-                        详细信息: ${this.formDatas.detail} ==> ${this.formData.detail}\n
+                        详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail}\n
                         折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
                         积分: ${this.formDatas.points} ==> ${this.formData.points}`
         this.$refs['confirmBox'].open({
@@ -139,7 +139,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {vm.fromPath = from.path; if (typeof to.query.id !== "undefined") vm.id = to.query.id;});
+    next(vm => {vm.fromPath = `${from.path}?id=${from.query.id || ''}`; vm.id = to.query.id || -1;});
   }
 }
 </script>
