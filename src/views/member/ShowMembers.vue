@@ -39,8 +39,8 @@ import TableWithPagination from "@/components/content/TableWithPagination";
 //TODO delete
 import {tmpUserData} from "@/config/tmp-config";
 import {request} from "@/network/request";
-let tmpPropName = ['name', 'registerDay', 'remain', 'points'];
-let tmpLabelName = ['用户名', '注册日期', '剩余金额', '当前积分']
+let tmpPropName = ['name', 'registerDay', 'phoneNum', 'remain', 'points'];
+let tmpLabelName = ['用户名', '注册日期', '电话号码', '剩余金额', '当前积分']
 export default {
   name: "ShowMembers",
   data() {

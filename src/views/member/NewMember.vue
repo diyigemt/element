@@ -18,6 +18,10 @@
           <el-date-picker v-model="formData.birthDay" format="yyyy-MM-dd" value-format="yyyy-MM-dd"
                           :style="{width: '100%'}"></el-date-picker>
         </el-form-item>
+        <el-form-item label="联系电话" prop="phoneNum">
+          <el-input v-model="formData.phoneNum" placeholder="联系电话" :maxlength="11" show-word-limit clearable
+                    prefix-icon='el-icon-phone' :style="{width: '100%'}"></el-input>
+        </el-form-item>
         <el-form-item label="用户积分" prop="points">
           <el-input v-model="formData.points" prefix-icon='el-icon-star-off' :style="{width: '100%'}">
           </el-input>
@@ -50,6 +54,7 @@ export default {
         userName: "测试",
         gender: 1,
         birthDay: "2000-01-01",
+        phoneNum: 18012341234,
         points: 0,
         money: 0
       },
@@ -66,6 +71,15 @@ export default {
           trigger: 'blur'
         }],
         birthDay: [],
+        phoneNum: [{
+          pattern: /\d{11}/,
+          message: '电话号码长度不正确!应为11位!',
+          trigger: 'blur'
+        }, {
+          pattern: /^1[3456789]\d{9}$/,
+          message: '电话号码开头不正确!',
+          trigger: 'blur'
+        }],
         points: [{
           pattern: /^\d*$/,
           message: '请输入整数!',
@@ -102,6 +116,7 @@ export default {
                         用户名: ${this.formData.userName}\n
                         性别: ${this.genderOptions[this.formData.gender - 1].label}\n
                         出生日期: ${this.formData.birthDay}\n
+                        电话号码: ${this.formData.phoneNum}\n
                         用户积分: ${this.formData.points}\n
                         剩余金额: ${this.formData.money}`;
         this.$refs['confirmBox'].open({

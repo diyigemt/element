@@ -35,6 +35,7 @@ export const tmpUserData = [{
   name: '会员1',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
+  phoneNum: 18012341234,
   gender: '1',
   remain: 300.02,
   points: 300
@@ -43,6 +44,7 @@ export const tmpUserData = [{
   name: '会员2',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
+  phoneNum: 18012341234,
   gender: '1',
   remain: 300.02,
   points: 300
@@ -51,6 +53,7 @@ export const tmpUserData = [{
   name: '会员3',
   birthDay: '2020-01-08',
   registerDay: '2020-02-01',
+  phoneNum: 18012341234,
   gender: '1',
   remain: 300.02,
   points: 300
