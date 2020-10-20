@@ -41,21 +41,24 @@
         <el-form-item size="large">
           <el-button :disabled="readonly" type="primary" @click="submitForm">提交</el-button>
           <el-button :disabled="readonly" @click="resetForm">重置</el-button>
+          <el-button :disabled="readonly" type="danger" @click="handleDelete()">删除订单</el-button>
         </el-form-item>
       </el-form>
-      <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>
+<!--      <ConfirmBox v-show="false" @action="submit($event)" ref="confirmBox"></ConfirmBox>-->
     </div>
   </div>
 </template>
 
 <script>
 import {tmpOrderDetail} from "@/config/tmp-config";
+import {confirmBox} from '@/common/utils';
 import PageHeader from "@/components/common/PageHeader";
-import ConfirmBox from "@/components/common/ConfirmBox";
+// import ConfirmBox from "@/components/common/ConfirmBox";
 import {request} from "@/network/request";
+import {confirmBoxConfig} from "@/common/const";
 export default {
   name: "OrderDetail",
-  components: {PageHeader, ConfirmBox},
+  components: {PageHeader},
   data() {
     return {
       fromPath: '',
@@ -107,11 +110,23 @@ export default {
                         金额: ${this.formDatas.money} ==> ${this.formData.money}\n
                         详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail}\n
                         折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
-                        积分: ${this.formDatas.points} ==> ${this.formData.points}`
-        this.$refs['confirmBox'].open({
-          content: content
+                        积分: ${this.formDatas.points} ==> ${this.formData.points}`;
+
+        // this.$refs['confirmBox'].open({
+        //   content: content
+        // });
+        confirmBox({content: content}).then(() => {
+          this.$message({
+            type: 'success',
+            message: '成功'
+          });
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: `操作失败! 服务器返回错误代码: ${err}`
+          });
         });
-      })
+      });
     },
     submit(state) {
       if (state) {
@@ -128,6 +143,44 @@ export default {
           })
         })
       }
+    },
+    handleDelete() {
+      this.$confirm('', {
+        title: '提示',
+        message: `确认删除该订单信息?`,
+        type: 'warning',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true;
+            instance.confirmButtonText = '通信中...';
+            //TODO 删除
+            request({
+              url: ''
+            }).then(res => {
+              done();
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              });
+              // TODO 直接在数据中删除 or 重新请求数据?
+            }).catch(err => {
+              this.$message({
+                type: 'error',
+                message: `操作失败! 服务器返回错误代码: ${err}`
+              });
+              done();
+            });
+            instance.confirmButtonLoading = false;
+          } else {
+            done();
+          }
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
     },
     resetForm() {
       this.$refs['elForm'].resetFields()

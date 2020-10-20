@@ -70,9 +70,13 @@ export default {
     Table
   },
   methods: {
-    handleClick(o, event) {
-      // TODO show order Dialog
-    }
+    handleClick(o ,event) {
+      //TODO jump to editPage
+      this.$router.push({
+        name: 'OrderDetail',
+        query: {id: o.id}
+      })
+    },
   },
   mounted() {
     // TODO
