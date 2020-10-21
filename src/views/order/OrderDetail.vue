@@ -99,13 +99,20 @@ export default {
   methods: {
     submitForm() {
       this.$refs['elForm'].validate(valid => {
+        if (this.id === -1) {
+          this.$message({
+            type: 'error',
+            message: '错误! 未选择订单! 请返回订单详情或者用户订单界面进行选择!'
+          });
+          return;
+        }
         if (!valid) return
         // TODO 提交表单
         let content = `确认修改订单信息?\n
                         创建时间: ${this.formDatas.createTime} ==> ${this.formData.createTime}\n
                         用户名: ${this.formDatas.userName} ==> ${this.formDatas.userName}\n
                         金额: ${this.formDatas.money} ==> ${this.formData.money}\n
-                        详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail}\n
+                        详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail || '无'}\n
                         折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
                         积分: ${this.formDatas.points} ==> ${this.formData.points}`;
         confirmBox(this.$createElement, {content: content}).then(() => {
@@ -130,6 +137,13 @@ export default {
       });
     },
     handleDelete() {
+      if (this.id === -1) {
+        this.$message({
+          type: 'error',
+          message: '错误! 未选择订单! 请返回订单详情或者用户订单界面进行选择!'
+        });
+        return;
+      }
       this.$confirm('', {
         title: '提示',
         message: `确认删除该订单信息?`,

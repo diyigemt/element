@@ -3,6 +3,27 @@
     <PageHeader content="创建新订单" :from-path="fromPath"></PageHeader>
     <el-divider></el-divider>
     <div class="shadow">
+      <div style="margin-bottom: 10px; text-align: left;">
+        <div class="detail-head" style="margin-right: 10px;">
+          搜索用户:
+          <el-select
+              v-model="selectedUser"
+              filterable
+              remote
+              placeholder="请输入关键词"
+              :remote-method="remoteSearch"
+              :loading="loading">
+            <el-option
+                v-for="(item, index) in userList"
+                :key="item.id + index"
+                :label="item.name"
+                :value="item">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="detail-head">用户名: {{selectedUser.name || ''}}联系电话: {{selectedUser.phoneNum || ''}}
+        剩余金额: {{selectedUser.money}} 当前积分: {{selectedUser.points}}</div>
+      </div>
       <Test></Test>
     </div>
   </div>
@@ -11,16 +32,44 @@
 <script>
 import PageHeader from "@/components/common/PageHeader";
 import Test from "@/components/common/Test";
+import {request} from "@/network/request";
+import {tmpUserList} from "@/config/tmp-config";
+
 export default {
   name: "CreateOrder",
   components: {Test, PageHeader},
   data() {
     return {
-      fromPath: '/home'
+      fromPath: '/home',
+      selectedUser: '',
+      loading: false,
+      // userList: []
+      userList: tmpUserList
     };
   },
   methods: {
-
+    remoteSearch(word) {
+      if (word !== '') {
+        this.loading = true;
+        this.userList = tmpUserList.filter(item => {
+          return item.name.indexOf(word) > -1;
+        });
+        request({
+          url: ''
+        }).then(res => {
+          // TODO 按会员名搜索
+          this.loading = false;
+        }).catch(err => {
+          this.$message({
+            type: 'error',
+            message: `搜索失败! 服务器返回错误代码: ${err}`
+          });
+          this.loading = false;
+        });
+      } else {
+        this.userList = []
+      }
+    }
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {vm.fromPath = `${from.path}?id=${from.query.id || ''}`;});
@@ -29,5 +78,8 @@ export default {
 </script>
 
 <style scoped>
-
+.detail-head {
+  vertical-align: center;
+  display: inline-block;
+}
 </style>

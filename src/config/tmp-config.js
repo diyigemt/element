@@ -68,3 +68,22 @@ export const tmpOrderDetail = {
   points: 500,
   discount: 0.8
 }
+export const tmpUserList = [{
+  id: 1,
+  name: 'asd',
+  phoneNum: 180012344321,
+  remain: 300,
+  points: 300
+}, {
+  id: 2,
+  name: 'ads',
+  phoneNum: 180012341234,
+  remain: 600,
+  points: 300
+}, {
+  id: 3,
+  name: 'bdx',
+  phoneNum: 180012345532,
+  remain: 300,
+  points: 600
+}]
