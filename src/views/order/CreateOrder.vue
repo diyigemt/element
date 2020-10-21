@@ -21,8 +21,12 @@
             </el-option>
           </el-select>
         </div>
-        <div class="detail-head">用户名: {{selectedUser.name || ''}}联系电话: {{selectedUser.phoneNum || ''}}
-        剩余金额: {{selectedUser.money}} 当前积分: {{selectedUser.points}}</div>
+        <div class="detail-head">
+          <span class="inline-span">用户名: {{selectedUser.name || ''}}</span>
+          <span class="inline-span">联系电话: {{selectedUser.phoneNum || ''}}</span>
+          <span class="inline-span">剩余金额: {{selectedUser.money}}</span>
+          <span class="inline-span">当前积分: {{selectedUser.points}}</span>
+        </div>
       </div>
       <Test></Test>
     </div>
@@ -48,6 +52,9 @@ export default {
     };
   },
   methods: {
+    getGoodsList() {
+      //TODO get goods
+    },
     remoteSearch(word) {
       if (word !== '') {
         this.loading = true;
@@ -81,5 +88,8 @@ export default {
 .detail-head {
   vertical-align: center;
   display: inline-block;
+}
+.detail-head .inline-span {
+  margin-left: 10px;
 }
 </style>

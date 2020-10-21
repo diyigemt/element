@@ -87,3 +87,28 @@ export const tmpUserList = [{
   remain: 300,
   points: 600
 }]
+export const tmpGoodsList = [{
+  id: 1,
+  name: '产品1',
+  price: 500,
+  points: 500,
+  discountID: -1
+}, {
+  id: 2,
+  name: '产品2',
+  price: 200,
+  points: 200,
+  discountID: 1
+}, {
+  id: 3,
+  name: '产品3',
+  price: 400,
+  points: 400,
+  discountID: -1
+}, {
+  id: 4,
+  name: '产品4',
+  price: 350,
+  points: 350,
+  discountID: 2
+}]
