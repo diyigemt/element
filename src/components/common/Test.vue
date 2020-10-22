@@ -4,27 +4,34 @@
            ref="dynamicValidateForm"
            label-width="100px"
            class="demo-dynamic">
-    <el-form-item
-        v-for="(e, index) in orderForm.goods"
-        :label="'域名' + index"
-        :key="e.key"
-        :prop="'domains.' + index + '.value'"
-        :rules="{
-      required: true, message: '域名不能为空', trigger: 'blur'
-    }">
-      <el-select
-          v-model="e.type"
-          filterable
-          placeholder="请输入关键词">
-        <el-option
-            v-for="(item, index) in goodsList"
-            :key="item.id + index"
-            :label="item.name"
-            :value="item.type">
-        </el-option>
-      </el-select>
-      <el-input v-model="e.value" style="width: 80%"></el-input><el-button @click.prevent="removeDomain(e)">删除</el-button>
-    </el-form-item>
+    <el-table stripe empty-text="空" :data="orderForm.goods">
+      <el-table-column label="编号" type="index" width="50px"></el-table-column>
+      <el-table-column label="商品">
+        <template slot-scope="scope">
+          <el-form-item>
+            <el-select
+                v-model="orderForm.goods[scope.$index].type"
+                filterable
+                placeholder="请输入关键词">
+              <el-option
+                  v-for="(item, index) in goodsList"
+                  :key="item.id + index"
+                  :label="item.name"
+                  :value="item.id">
+              </el-option>
+            </el-select>
+            <!--          <el-button @click.prevent="removeDomain(e)">删除</el-button>-->
+          </el-form-item>
+        </template>
+      </el-table-column>
+      <el-table-column label="单价">
+        <template slot-scope="scope">
+          <span>{{goodsList[orderForm.goods[scope.$index].type].price}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="数量"></el-table-column>
+      <el-table-column label="金额"></el-table-column>
+    </el-table>
     <el-form-item>
       <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
       <el-button @click="addDomain">新增域名</el-button>
@@ -41,7 +48,7 @@ export default {
     return {
       orderForm: {
         goods: [{
-          value: '',
+          value: '产品1',
           key: Date.now(),
           type: 1
         }]
@@ -62,6 +69,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.orderForm.goods = [{value: '产品1', key: Date.now(), type: 1}]
     },
     removeDomain(item) {
       let index = this.orderForm.goods.indexOf(item)
@@ -71,8 +79,9 @@ export default {
     },
     addDomain() {
       this.orderForm.goods.push({
-        value: '',
-        key: Date.now()
+        value: '产品1',
+        key: Date.now(),
+        type: 1
       });
     }
   }
