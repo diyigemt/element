@@ -64,7 +64,7 @@ export const tmpOrderDetail = {
   name: '王小虎',
   userID: 1,
   detail: '新疆驼奶粉1件',
-  money: 500,
+  price: 500,
   points: 500,
   discount: 0.8
 }

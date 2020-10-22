@@ -1,16 +1,15 @@
 <template>
-  <el-form :model="orderForm"
-           label-position="left"
+  <el-form label-position="left"
            ref="dynamicValidateForm"
            label-width="100px"
            class="demo-dynamic">
     <el-table stripe empty-text="空" :data="orderForm.goods">
-      <el-table-column label="编号" type="index" width="50px"></el-table-column>
+      <el-table-column label="编号" type="index" width="50px" align="center"></el-table-column>
       <el-table-column label="商品">
         <template slot-scope="scope">
           <el-form-item>
             <el-select
-                v-model="orderForm.goods[scope.$index].type"
+                v-model="orderForm.goods[scope.$index].id"
                 filterable
                 placeholder="请输入关键词">
               <el-option
@@ -24,17 +23,25 @@
           </el-form-item>
         </template>
       </el-table-column>
-      <el-table-column label="单价">
+      <el-table-column label="单价" width="50px">
         <template slot-scope="scope">
-          <span>{{goodsList[orderForm.goods[scope.$index].type].price}}</span>
+          <span>{{goodsList[orderForm.goods[scope.$index].id - 1].price}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="数量"></el-table-column>
-      <el-table-column label="金额"></el-table-column>
+      <el-table-column label="数量" align="center">
+        <template slot-scope="scope">
+          <el-input-number v-model.number="orderForm.goods[scope.$index].count" :min="1"></el-input-number>
+        </template>
+      </el-table-column>
+      <el-table-column label="金额">
+        <template slot-scope="scope">
+          <span>{{goodsList[orderForm.goods[scope.$index].id - 1].price * orderForm.goods[scope.$index].count}}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <el-form-item>
       <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
-      <el-button @click="addDomain">新增域名</el-button>
+      <el-button @click="addGood">新增条目</el-button>
       <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
     </el-form-item>
   </el-form>
@@ -48,9 +55,10 @@ export default {
     return {
       orderForm: {
         goods: [{
+          id: 1,
           value: '产品1',
           key: Date.now(),
-          type: 1
+          count: 1
         }]
       },
       goodsList: tmpGoodsList
@@ -69,7 +77,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.orderForm.goods = [{value: '产品1', key: Date.now(), type: 1}]
+      this.orderForm.goods = [{id: 1, value: '产品1', key: Date.now(), count: 1}]
     },
     removeDomain(item) {
       let index = this.orderForm.goods.indexOf(item)
@@ -77,11 +85,12 @@ export default {
         this.orderForm.goods.splice(index, 1)
       }
     },
-    addDomain() {
+    addGood() {
       this.orderForm.goods.push({
+        id: 1,
         value: '产品1',
         key: Date.now(),
-        type: 1
+        count: 1
       });
     }
   }
