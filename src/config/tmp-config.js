@@ -89,24 +89,28 @@ export const tmpUserList = [{
 }]
 export const tmpGoodsList = [{
   id: 1,
+  code: 13177421234,
   name: '产品1',
   price: 500,
   points: 500,
   discountID: -1
 }, {
   id: 2,
+  code: 13177421235,
   name: '产品2',
   price: 200,
   points: 200,
   discountID: 1
 }, {
   id: 3,
+  code: 13177421236,
   name: '产品3',
   price: 400,
   points: 400,
   discountID: -1
 }, {
   id: 4,
+  code: 13177421237,
   name: '产品4',
   price: 350,
   points: 350,

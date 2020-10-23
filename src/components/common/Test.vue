@@ -81,12 +81,21 @@ export default {
         request({
           url: ''
         }).then(res => {
-
+          this.$message({
+            type: 'info',
+            message: '成功'
+          });
         }).catch(err => {
-
+          this.$message({
+            type: 'error',
+            message: `操作失败! 服务器返回错误代码: ${err}`
+          });
         })
       }).catch(err => {
-
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
       })
     },
     resetForm(formName) {
