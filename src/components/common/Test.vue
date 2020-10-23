@@ -52,6 +52,8 @@
 </template>
 <script>
 import {tmpGoodsList} from "@/config/tmp-config";
+import {request} from "@/network/request";
+import {confirmBox} from "@/common/utils";
 
 export default {
   name: 'Test',
@@ -70,14 +72,22 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
+      //TODO submit
+      let content = `确认创建?\n
+                     用户名: `;
+      confirmBox(this.$createElement, {
+        content: content
+      }).then(res => {
+        request({
+          url: ''
+        }).then(res => {
+
+        }).catch(err => {
+
+        })
+      }).catch(err => {
+
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
