@@ -49,6 +49,7 @@
                       @input="handleInput"
                       @keypress.native.enter="handleEnter"
                       max="12"></el-input>
+            <span v-show="this.goodTmp.id === -1" style="color: red;">编码不存在!!</span>
           </el-form-item>
           <el-form-item>
             <el-button @click.prevent="addGood" type="primary">确认</el-button>
@@ -134,7 +135,8 @@ export default {
       discount: 100,
       goodTmp: {
         id: 1,
-        code: 13177421234
+        code: 13177421234,
+        count: 1
       },
       mapping: tmpMapping,
       goodsList: tmpGoodsList
@@ -253,11 +255,6 @@ export default {
     },
     handleDiscount(val) {
       val = val.replace(/[^\d]/g, ''); //清除"数字"以外的字符
-      // val = val.replace(/^\./g, ""); //验证第一个字符是数字而不是
-      // val = val.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
-      // val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-      // val = val.replace(/^(\-)*(\d+)\.(\d).*$/, '$1$2.$3'); //只能输入一个小数
-      // let reg = new RegExp('^([0-9][.][0-9]{1,2}|\\d)$');
       let reg = new RegExp('^(100|[1-9]{1,2})$')
       let regExpExecArray = reg.exec(val);
       if (regExpExecArray === null) {
