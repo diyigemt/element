@@ -28,7 +28,7 @@
           <span class="inline-span">当前积分: {{selectedUser.points}}</span>
         </div>
       </div>
-      <div style="text-align: right;">
+      <div style="text-align: left;">
         <el-form inline>
           <el-form-item label="商品">
             <el-select
@@ -45,7 +45,13 @@
             </el-select>
           </el-form-item>
           <el-form-item label="编码">
-            <el-input clearable v-model.number="goodTmp.code" @input="handleInput"></el-input>
+            <el-input clearable v-model.number="goodTmp.code"
+                      @input="handleInput"
+                      @keypress.native.enter="handleEnter"
+                      max="12"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click.prevent="addGood" type="primary">确认</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -86,7 +92,6 @@
         </el-table>
         <div style="margin-top: 10px;">
           <el-button type="primary" @click="submitForm()">提交</el-button>
-          <el-button @click="addGood">新增条目</el-button>
           <el-button @click="resetForm()">重置</el-button>
         </div>
       </div>
@@ -194,7 +199,7 @@ export default {
     },
     addGood() {
       this.orderForm.goods.push({
-        id: 1,
+        id: this.goodTmp.id,
         key: Date.now(),
         count: 1
       });
@@ -208,14 +213,20 @@ export default {
     },
     handleInput(val) {
       let length = val.toString().length;
-      let num = Number(val);
       if (length === 11) {
+        let num = Number(val);
         for (let item of this.goodsList) {
           if (item.code === num) {
             this.goodTmp.id = item.id;
             break;
           }
         }
+      }
+    },
+    handleEnter() {
+      let length = this.goodTmp.code.toString().length;
+      if (length === 11) {
+        this.addGood();
       }
     }
   },
