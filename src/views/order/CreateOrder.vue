@@ -90,7 +90,13 @@
             </template>
           </el-table-column>
         </el-table>
-        <div>{{summary}}</div>
+        <div class="discount">
+          <span style="margin-right: 10px;">折扣:</span>
+          <el-input v-model="discount" size="small" style="width: 150px;" @change="handleDiscount"></el-input>
+          <span style="margin: 0 5px">(输入范围:1-100)</span>
+          <span v-show="this.discount === -1" style="color: red;margin-left: 10px;">输入错误</span>
+        </div>
+        <div class="summary">{{'总价: ' + summary + '元 可得积分: ' + summary}}</div>
         <div style="margin-top: 10px;">
           <el-button type="primary" @click="submitForm()">提交</el-button>
           <el-button @click="resetForm()">重置</el-button>
@@ -119,13 +125,13 @@ export default {
       fromPath: '/home',
       selectedUser: '',
       loading: false,
-      // userList: []
       userList: tmpUserList,
       orderForm: [{
         id: 1,
         key: Date.now(),
         count: 1
       }],
+      discount: 100,
       goodTmp: {
         id: 1,
         code: 13177421234
@@ -162,6 +168,14 @@ export default {
     },
     submitForm() {
       //TODO submit
+      if (this.discount === -1) {
+        this.$message({message: '折扣输入有误!', type: 'error'});
+        return ;
+      }
+      if (this.goodsList.length === 0) {
+        this.$message({message: '没有产品!', type: 'error'});
+        return ;
+      }
       let content = `确认创建?\n
                      用户名: `;
       confirmBox(this.$createElement, {
@@ -236,12 +250,26 @@ export default {
       if (length === 11) {
         this.addGood();
       }
+    },
+    handleDiscount(val) {
+      val = val.replace(/[^\d]/g, ''); //清除"数字"以外的字符
+      // val = val.replace(/^\./g, ""); //验证第一个字符是数字而不是
+      // val = val.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+      // val = val.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+      // val = val.replace(/^(\-)*(\d+)\.(\d).*$/, '$1$2.$3'); //只能输入一个小数
+      // let reg = new RegExp('^([0-9][.][0-9]{1,2}|\\d)$');
+      let reg = new RegExp('^(100|[1-9]{1,2})$')
+      let regExpExecArray = reg.exec(val);
+      if (regExpExecArray === null) {
+        this.discount = -1;
+      }
     }
   },
   computed: {
     summary() {
-      return '总价 ' +  this.orderForm.map(item => this.goodsList[item.id - 1].price * item.count).reduce((perv, curr) => perv +
-          curr) + '元';
+      if (this.discount === -1) return '折扣输入错误!';
+      return this.orderForm.map(item => this.goodsList[item.id - 1].price * item.count).reduce((perv, curr) => perv +
+          curr) * this.discount * 0.01;
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -257,5 +285,17 @@ export default {
 }
 .detail-head .inline-span {
   margin-left: 10px;
+}
+.discount {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  text-align: left;
+  vertical-align: center;
+}
+.summary {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
 }
 </style>
