@@ -29,7 +29,7 @@
         </div>
       </div>
       <div style="text-align: left;">
-        <el-form inline>
+        <el-form inline style="height: 70px">
           <el-form-item label="商品">
             <el-select
                 v-model="goodTmp.id"
@@ -48,8 +48,9 @@
             <el-input clearable v-model.number="goodTmp.code"
                       @input="handleInput"
                       @keypress.native.enter="handleEnter"
-                      max="12"></el-input>
-            <span v-show="this.goodTmp.id === -1" style="color: red;">编码不存在!!</span>
+                      maxlength="12"
+                      ref="codeInput" style="width: 200px"></el-input>
+            <span v-show="this.goodTmp.id === -1" style="color: red; margin: 0 10px">编码不存在!!</span>
           </el-form-item>
           <el-form-item>
             <el-button @click.prevent="addGood" type="primary">确认</el-button>
@@ -213,8 +214,19 @@ export default {
       }
     },
     addGood() {
-      if (this.goodTmp.id === -1) return ;
+      if (this.goodTmp.id === -1) {
+        this.$message({
+          message: '编号不存在!',
+          type: 'error'
+        })
+        return;
+      }
       let target = this.goodTmp.id;
+      //reset
+      this.$nextTick(() => {
+        this.$refs['codeInput'].focus();
+        this.$refs['codeInput'].select();
+      })
       for (let item of this.orderForm) {
         if (item.id === target) {
           item.count++;
@@ -222,7 +234,7 @@ export default {
         }
       }
       this.orderForm.push({
-        id: this.goodTmp.id,
+        id: target,
         key: Date.now(),
         count: 1
       });
