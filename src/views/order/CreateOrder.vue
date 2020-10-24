@@ -56,40 +56,41 @@
         </el-form>
       </div>
       <div>
-        <el-table stripe empty-text="空" :data="orderForm.goods" show-summary :summary-method="getSummaries">
+        <el-table stripe empty-text="空" :data="orderForm">
           <el-table-column label="编号" type="index" width="50px" align="center"></el-table-column>
           <el-table-column label="商品">
             <template slot-scope="scope">
-              <span>{{goodsList[orderForm.goods[scope.$index].id - 1].name}}</span>
+              <span>{{goodsList[orderForm[scope.$index].id - 1].name}}</span>
             </template>
           </el-table-column>
           <el-table-column label="编码">
             <template slot-scope="scope">
-              <span>{{mapping[orderForm.goods[scope.$index].id]}}</span>
+              <span>{{mapping[orderForm[scope.$index].id]}}</span>
             </template>
           </el-table-column>
           <el-table-column label="单价" width="70px">
             <template slot-scope="scope">
-              <span>{{goodsList[orderForm.goods[scope.$index].id - 1].price + '元'}}</span>
+              <span>{{goodsList[orderForm[scope.$index].id - 1].price + '元'}}</span>
             </template>
           </el-table-column>
           <el-table-column label="数量" align="center" width="150px">
             <template slot-scope="scope">
-              <el-input-number size="small" v-model.number="orderForm.goods[scope.$index].count"
+              <el-input-number size="small" v-model.number="orderForm[scope.$index].count"
                                :min="1"></el-input-number>
             </template>
           </el-table-column>
           <el-table-column label="金额" width="100px">
             <template slot-scope="scope">
-              <span>{{goodsList[orderForm.goods[scope.$index].id - 1].price * orderForm.goods[scope.$index].count + '元'}}</span>
+              <span>{{goodsList[orderForm[scope.$index].id - 1].price * orderForm[scope.$index].count + '元'}}</span>
             </template>
           </el-table-column>
           <el-table-column align="right">
             <template slot-scope="scope">
-              <el-button type="danger" @click.prevent="removeGood(orderForm.goods[scope.$index])">删除</el-button>
+              <el-button type="danger" @click.prevent="removeGood(orderForm[scope.$index])">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <div>{{summary}}</div>
         <div style="margin-top: 10px;">
           <el-button type="primary" @click="submitForm()">提交</el-button>
           <el-button @click="resetForm()">重置</el-button>
@@ -120,13 +121,11 @@ export default {
       loading: false,
       // userList: []
       userList: tmpUserList,
-      orderForm: {
-        goods: [{
-          id: 1,
-          key: Date.now(),
-          count: 1,
-        }]
-      },
+      orderForm: [{
+        id: 1,
+        key: Date.now(),
+        count: 1
+      }],
       goodTmp: {
         id: 1,
         code: 13177421234
@@ -189,24 +188,28 @@ export default {
       })
     },
     resetForm() {
-      this.orderForm.goods = [{id: 1, key: Date.now(), count: 1}]
+      this.orderForm = [{id: 1, key: Date.now(), count: 1}]
     },
     removeGood(item) {
-      let index = this.orderForm.goods.indexOf(item)
+      let index = this.orderForm.indexOf(item)
       if (index !== -1) {
-        this.orderForm.goods.splice(index, 1)
+        this.orderForm.splice(index, 1)
       }
     },
     addGood() {
-      this.orderForm.goods.push({
+      if (this.goodTmp.id === -1) return ;
+      let target = this.goodTmp.id;
+      for (let item of this.orderForm) {
+        if (item.id === target) {
+          item.count++;
+          return ;
+        }
+      }
+      this.orderForm.push({
         id: this.goodTmp.id,
         key: Date.now(),
         count: 1
       });
-    },
-    getSummaries({columns, data}) {
-      const value = data.map(item => this.goodsList[item.id - 1].price * item.count).reduce((perv, curr) => perv + curr)
-      return ['', '', '', '总价:', value.toString() + '元', ''];
     },
     handleChange() {
       this.goodTmp.code = this.mapping[this.goodTmp.id] || -1;
@@ -218,9 +221,14 @@ export default {
         for (let item of this.goodsList) {
           if (item.code === num) {
             this.goodTmp.id = item.id;
-            break;
+            return ;
           }
         }
+        this.goodTmp.id = -1;
+        this.$message({
+          message: '编号不存在!',
+          type: 'error'
+        })
       }
     },
     handleEnter() {
@@ -228,6 +236,12 @@ export default {
       if (length === 11) {
         this.addGood();
       }
+    }
+  },
+  computed: {
+    summary() {
+      return '总价 ' +  this.orderForm.map(item => this.goodsList[item.id - 1].price * item.count).reduce((perv, curr) => perv +
+          curr) + '元';
     }
   },
   beforeRouteEnter(to, from, next) {
