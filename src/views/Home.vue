@@ -48,8 +48,8 @@ import Table from "@/components/content/Table";
 import {tmpChartData} from "@/config/tmp-config";
 //TODO delete
 import {tmpTableData} from "@/config/tmp-config";
-let tmpPropName = ['date', 'name', 'detail']
-let tmpLabelName = ['日期', '用户名', '详细信息']
+let tmpPropName = ['date', 'name', 'detail', 'price']
+let tmpLabelName = ['日期', '用户名', '详细信息', '金额']
 export default {
   name: "Home",
   data() {

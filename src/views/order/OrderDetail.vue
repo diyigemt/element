@@ -23,16 +23,21 @@
           <el-input :readonly="readonly" v-model="formData.userName" placeholder="用户名用户名" :maxlength="20" show-word-limit clearable
                     prefix-icon='el-icon-user' :style="{width: '100%'}"></el-input>
         </el-form-item>
-        <el-form-item label="金额" prop="money">
-          <el-input :readonly="readonly" v-model="formData.money" placeholder="金额" clearable prefix-icon='el-icon-refresh'
-                    :style="{width: '100%'}"></el-input>
-        </el-form-item>
         <el-form-item label="详细信息" prop="detail">
           <el-input :readonly="readonly" v-model="formData.detail" type="textarea" :autosize="{minRows: 4, maxRows: 8}"
+                    :style="{width: '100%'}" resize="false"></el-input>
+        </el-form-item>
+        <el-form-item label="原价" prop="money">
+          <el-input :readonly="readonly" v-model="formData.original" placeholder="金额" clearable prefix-icon='el-icon-refresh'
                     :style="{width: '100%'}"></el-input>
         </el-form-item>
         <el-form-item label="折扣" prop="discount">
           <el-input :readonly="readonly" v-model="formData.discount" clearable :style="{width: '100%'}"></el-input>
+        </el-form-item>
+        <el-form-item label="实付" prop="money">
+          <el-input :readonly="readonly" v-model="formData.price" placeholder="金额" clearable
+                    prefix-icon='el-icon-refresh'
+                    :style="{width: '100%'}"></el-input>
         </el-form-item>
         <el-form-item label="积分" prop="points">
           <el-input :readonly="readonly" v-model="formData.points" placeholder="积分" readonly clearable
@@ -65,17 +70,19 @@ export default {
       formData: {
         createTime: "2018-11-01 14:55:38",
         userName: "测试",
-        money: 0,
+        original: 0,
         detail: undefined,
         discount: 0,
+        price: 0,
         points: 0
       },
       formDatas: {
         createTime: "2018-11-01 14:55:38",
         userName: "测试",
-        money: 0,
+        original: 0,
         detail: undefined,
         discount: 0,
+        price: 0,
         points: 0
       },
       rules: {
@@ -85,7 +92,8 @@ export default {
           message: '请至少输入一个字符!',
           trigger: 'blur'
         }],
-        money: [],
+        price: [],
+        original: [],
         detail: [],
         discount: [{
           pattern: /^[0-9][.]?[0-9]{0,2}$/,
@@ -97,23 +105,44 @@ export default {
     }
   },
   methods: {
-    submitForm() {
-      this.$refs['elForm'].validate(valid => {
-        if (this.id === -1) {
-          this.$message({
-            type: 'error',
-            message: '错误! 未选择订单! 请返回订单详情或者用户订单界面进行选择!'
-          });
-          return;
+    getData() {
+      if (this.id === -1) {
+        this.$message({
+          type: 'warning',
+          message: '请从其他页面跳转到本页面!'
+        });
+        return ;
+      }
+      //TODO get data
+      let obj = null;
+      let target = this.id;
+      for (let item of tmpOrderDetail) {
+        if (target === item.id) {
+          obj = item;
+          break;
         }
+      }
+      Object.assign(this.formDatas, obj);
+      Object.assign(this.formData, obj);
+    },
+    submitForm() {
+      if (this.id === -1) {
+        this.$message({
+          type: 'error',
+          message: '错误! 未选择订单! 请返回订单详情或者用户订单界面进行选择!'
+        });
+        return;
+      }
+      this.$refs['elForm'].validate(valid => {
         if (!valid) return
         // TODO 提交表单
         let content = `确认修改订单信息?\n
                         创建时间: ${this.formDatas.createTime} ==> ${this.formData.createTime}\n
                         用户名: ${this.formDatas.userName} ==> ${this.formDatas.userName}\n
-                        金额: ${this.formDatas.money} ==> ${this.formData.money}\n
                         详细信息: ${this.formDatas.detail || '无'} ==> ${this.formData.detail || '无'}\n
+                        原价: ${this.formDatas.original} ==> ${this.formData.original}\n
                         折扣: ${this.formDatas.discount} ==> ${this.formData.discount}\n
+                        金额: ${this.formDatas.price} ==> ${this.formData.price}\n
                         积分: ${this.formDatas.points} ==> ${this.formData.points}`;
         confirmBox(this.$createElement, {content: content}).then(() => {
           // TODO 提交表单
@@ -191,7 +220,11 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    next(vm => {vm.fromPath = `${from.path}?id=${from.query.id || ''}`; vm.id = to.query.id || -1;});
+    next(vm => {
+      vm.fromPath = `${from.path}?id=${from.query.id || ''}`;
+      vm.id = to.query.id || -1;
+      vm.getData();
+    });
   }
 }
 </script>

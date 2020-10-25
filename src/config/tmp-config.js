@@ -3,32 +3,38 @@ export const tmpTableData = [{
   id: 1,
   date: '2016-05-02 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉1件',
+  price: 500
 }, {
   id: 2,
   date: '2016-05-04 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉1件',
+  price: 500
 }, {
   id: 3,
   date: '2016-05-01 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉2件',
+  price: 1000
 }, {
   id: 4,
   date: '2016-05-03 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉3件',
+  price: 1500
 }, {
   id: 5,
   date: '2016-05-03 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉1件',
+  price: 1350
 }, {
   id: 6,
   date: '2016-05-03 13:22:12',
   name: '王小虎',
-  detail: '新疆驼奶粉1件'
+  detail: '新疆驼奶粉1件',
+  price: 1200
 }]
 export const tmpUserData = [{
   id: 1,
@@ -58,16 +64,17 @@ export const tmpUserData = [{
   remain: 300.02,
   points: 300
 }]
-export const tmpOrderDetail = {
+export const tmpOrderDetail = [{
   id: 1,
-  date: '2016-05-03 13:22:12',
-  name: '王小虎',
+  createTime: '2016-05-03 13:22:12',
+  userName: '王小虎',
   userID: 1,
   detail: '新疆驼奶粉1件',
+  original: 500,
   price: 500,
   points: 500,
-  discount: 0.8
-}
+  discount: 100
+}]
 export const tmpUserList = [{
   id: 1,
   name: 'asd',
